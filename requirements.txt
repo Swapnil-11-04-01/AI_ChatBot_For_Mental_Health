@@ -1,0 +1,6 @@
+spacy==3.2.0
+SpeechRecognition
+pyttsx3
+colorama
+pandas
+scikit-learn
