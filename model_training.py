@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+# from sklearn.linear_model import LogisticRegression
+from catboost import CatBoostClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder
 import pickle
@@ -25,7 +26,7 @@ encoder = LabelEncoder().fit(y_train)
 y_train = encoder.transform(y_train)
 y_test = encoder.transform(y_test)
 
-model = LogisticRegression(C=.1, class_weight='balanced')
+model = CatBoostClassifier()
 model.fit(X_train, y_train)
 
 file = open('model.pkl', 'wb')
