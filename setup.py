@@ -6,30 +6,21 @@ with open("README.md", "n", encoding="utf-8") as f:
 
 __version__ = "0.0.0"
 
-REPO_NAME = ""
-HYPHEN_E_DOT = '-e .'
-
-
-def get_requirements(file_path: str) -> List[str]:
-    """
-    :param file_path: Path to the requirements.txt
-    :return: list of requirements
-    """
-    with open(file_path) as f:
-        requirements = f.readlines()
-        requirements = [req.replace('\n', '') for req in requirements]
-
-        if HYPHEN_E_DOT in requirements:
-            requirements.remove(HYPHEN_E_DOT)
-
-    return requirements
-
+REPO_NAME = "AI_ChatBot_For_Mental_Health"
+AUTHOR_USER_NAME = 'Swapnil-11-04-01'
+SRC_REPO = ''
+AUTHOR_EMAIL = "swapnil.sharma.869.11@gmail.com"
 
 setup(
-    name='Cultured Weebs',
-    version='0.0.1',
-    author='Swapnil Sharma',
-    author_email='swapnil.sharma.869.11@gmail.com',
-    packages=find_packages(),
-    install_requires=get_requirements('requirements.txt')
+    name=REPO_NAME,
+    version=__version__,
+    author=AUTHOR_USER_NAME,
+    author_email=AUTHOR_EMAIL,
+    description="AI Chatbot, named EVE AI, for thebetterment of the mental health.",
+    long_description=long_description,
+    long_descrption_content="text/markdown",
+    url=(f'https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}'),
+    project_url={"Bug Tracker": f'https://github.com/{AUTHOR_USER_NAME}/{REPO_NAME}/issues'},
+    package_dir={"": "src"},
+    packages=find_packages(where="src")
 )
