@@ -1,13 +1,13 @@
 spacy==3.2.0
-SpeechRecognition
-pyttsx3
-colorama
 pandas
 scikit-learn
 dvc
 notebook
 python-box==6.0.2
-joblib
+PyYAML
+tqdm
+ensure==1.0.2
 types-PyYAML
+joblib
 
 -e .
