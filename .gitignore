@@ -2,3 +2,4 @@
 venv
 src/__pycache__
 templates
+src/EVE_AI.egg-info
