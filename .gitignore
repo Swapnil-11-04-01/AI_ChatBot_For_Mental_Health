@@ -1,5 +1,7 @@
 .idea
 venv
-src/__pycache__
+src/EVE_AI/__pycache__
 templates
 src/EVE_AI.egg-info
+logs
+main.py
