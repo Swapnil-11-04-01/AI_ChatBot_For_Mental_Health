@@ -2,6 +2,10 @@
 venv
 src/EVE_AI/constants/__pycache__
 src/EVE_AI/utils/__pycache__
+src/EVE_AI/components/__pycache__
+src/EVE_AI/config/__pycache__
+src/EVE_AI/entity/__pycache__
+src/EVE_AI/pipeline/__pycache__
 src/EVE_AI/__pycache__
 templates
 src/EVE_AI.egg-info
