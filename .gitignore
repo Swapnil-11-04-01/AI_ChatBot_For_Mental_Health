@@ -1,6 +1,7 @@
 .idea
 venv
 src/EVE_AI/constants/__pycache__
+src/EVE_AI/utils/__pycache__
 src/EVE_AI/__pycache__
 templates
 src/EVE_AI.egg-info
