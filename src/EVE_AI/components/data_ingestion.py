@@ -4,7 +4,7 @@ import zipfile
 from EVE_AI import logger
 from EVE_AI.utils.common import get_size
 from EVE_AI.entity.config_entity import DataIngestionConfig
-from pathlib import path
+from pathlib import Path
 
 
 class DataIngestion:
