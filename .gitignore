@@ -7,7 +7,9 @@ src/EVE_AI/config/__pycache__
 src/EVE_AI/entity/__pycache__
 src/EVE_AI/pipeline/__pycache__
 src/EVE_AI/__pycache__
-templates
 src/EVE_AI.egg-info
+templates
+artifacts
+artifacts_old
 logs
 main.py
