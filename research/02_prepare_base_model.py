@@ -2,10 +2,6 @@ import pickle
 from dataclasses import dataclass
 from EVE_AI.constants import *
 from EVE_AI.utils.common import read_yaml, create_directories
-import urllib.request as request
-import zipfile
-from EVE_AI import logger
-from EVE_AI.utils.common import get_size
 import tensorflow as tf
 from transformers import TFDistilBertForSequenceClassification, DistilBertTokenizer
 
@@ -65,7 +61,7 @@ class ConfigurationManager:
 
 
 class PrepareBaseModel:
-    def __init__(self, config_model: PrepareBaseModelConfig, config_tokenizer: PrepareBaseModelConfig):
+    def __init__(self, config_model: PrepareBaseModelConfig, config_tokenizer: PrepareBaseTokenizerConfig):
         self.config_model = config_model
         self.config_tokenizer = config_tokenizer
 
