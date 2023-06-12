@@ -2,15 +2,13 @@ spacy==3.2.0
 pandas
 scikit-learn
 dvc
-notebook
 python-box==6.0.2
 PyYAML
 tqdm
 ensure==1.0.2
 types-PyYAML
 joblib
+catboost
 tensorflow
-transformers
-
 
 # -e .
