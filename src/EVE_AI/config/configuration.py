@@ -1,7 +1,7 @@
 from EVE_AI.constants import *
 import os
 from EVE_AI.utils.common import read_yaml, create_directories
-from EVE_AI.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, PrepareBaseTokenizerConfig, PrepareCallbacksConfig)
+from EVE_AI.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, PrepareBaseTokenizerConfig, TrainingConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -54,18 +54,29 @@ class ConfigurationManager:
 
         return prepare_base_tokenizer_config
 
-    def get_prepare_callback_config(self) -> PrepareCallbacksConfig:
-        config = self.config.prepare_callbacks
-        model_ckpt_dir = os.path.dirname(config.checkpoint_model_filepath)
+    def get_training_config(self) -> TrainingConfig:
+        training = self.config.training
+        prepare_base_model = self.config.prepare_base_model
+        prepare_base_tokenizer = self.config.prepare_base_tokenizer
+        prepare_fitted_tokenizer = self.config.prepare_fitted_tokenizer
+        params = self.params
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "training.csv")
+        validation_data = os.path.join(self.config.data_ingestion.unzip_dir, "validation.csv")
         create_directories([
-            Path(model_ckpt_dir),
-            Path(config.tensorboard_root_log_dir)
+            Path(training.root_dir)
         ])
 
-        prepare_callback_config = PrepareCallbacksConfig(
-            root_dir=Path(config.root_dir),
-            tensorboard_root_log_dir=Path(config.tensorboard_root_log_dir),
-            checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
+        training_config = TrainingConfig(
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            base_model_path=Path(prepare_base_model.base_model_path),
+            base_tokenizer_path=Path(prepare_base_tokenizer.base_tokenizer_path),
+            fitted_tokenizer_path=Path(prepare_fitted_tokenizer.fitted_tokenizer_path),
+            training_data=Path(training_data),
+            validation_data=Path(validation_data),
+            params_learning_rate=params.LEARNING_RATE,
+            params_depth=params.DEPTH,
+            params_verbose=params.VERBOSE
         )
 
-        return prepare_callback_config
+        return training_config
