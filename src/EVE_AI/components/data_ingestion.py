@@ -5,7 +5,9 @@ from EVE_AI import logger
 from EVE_AI.utils.common import get_size
 from EVE_AI.entity.config_entity import DataIngestionConfig
 from pathlib import Path
+import warnings
 
+warnings.filterwarnings("ignore")
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
