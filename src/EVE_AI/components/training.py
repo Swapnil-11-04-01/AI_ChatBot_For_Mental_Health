@@ -37,7 +37,7 @@ class Training:
         self.tokenized_training_data = self.tokenizer.fit_transform(self.train_text_generator.tolist())
         self.train_features = self.tokenized_training_data.toarray()
 
-        self.save_model(path=self.config.fitted_tokenizer_path, model=self.train_features)
+        self.save_model(path=self.config.fitted_tokenizer_path, model=self.tokenizer)
 
         self.tokenized_validation_data = self.tokenizer.transform(self.valid_text_generator.tolist())
         self.valid_features = self.tokenized_validation_data.toarray()
