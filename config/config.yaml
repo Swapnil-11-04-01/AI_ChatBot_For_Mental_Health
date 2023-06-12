@@ -12,8 +12,7 @@ data_ingestion:
 
 prepare_base_model:
   root_dir: artifacts/prepare_base_model
-  base_model_path: artifacts/prepare_base_model/base_model.pkl
-  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.pkl
+  base_model_path: artifacts/prepare_base_model/base_model.h5
 
 
 
@@ -21,6 +20,13 @@ prepare_base_model:
 prepare_base_tokenizer:
   root_dir: artifacts/prepare_base_tokenizer
   base_tokenizer_path: artifacts/prepare_base_tokenizer/prepare_base_tokenizer.pkl
+
+
+
+
+prepare_fitted_tokenizer:
+  root_dir: artifacts/prepare_fitted_tokenizer
+  fitted_tokenizer_path: artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
 
 
 
