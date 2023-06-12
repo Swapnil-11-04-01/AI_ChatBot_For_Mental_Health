@@ -2,7 +2,6 @@ from EVE_AI.config.configuration import ConfigurationManager
 from EVE_AI.components.data_ingestion import DataIngestion
 from EVE_AI import logger
 
-
 STAGE_NAME = "Data Ingestion stage"
 
 class DataIngestionTrainingPipeline:
