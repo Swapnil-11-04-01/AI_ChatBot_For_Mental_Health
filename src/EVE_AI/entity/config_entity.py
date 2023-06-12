@@ -34,3 +34,11 @@ class TrainingConfig:
     params_learning_rate: float
     params_depth: int
     params_verbose: int
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    path_of_model: Path
+    path_of_tokenizer: Path
+    test_data: Path
+    all_params: dict
+    params_verbose: int
