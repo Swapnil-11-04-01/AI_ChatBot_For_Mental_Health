@@ -35,11 +35,9 @@ class ConfigurationManager:
         prepare_base_model_config = PrepareBaseModelConfig(
             root_dir=Path(config_model.root_dir),
             base_model_path=Path(config_model.base_model_path),
-            updated_base_model_path=Path(config_model.updated_base_model_path),
             params_learning_rate=self.params.LEARNING_RATE,
-            params_classes=self.params.CLASSES,
-            params_batch_size=self.params.BATCH_SIZE,
-            params_epochs=self.params.EPOCHS,
+            params_iterations=self.params.ITERATIONS,
+            params_depth=self.params.DEPTH
         )
 
         return prepare_base_model_config
