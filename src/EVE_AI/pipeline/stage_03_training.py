@@ -1,6 +1,9 @@
 from EVE_AI.config.configuration import ConfigurationManager
 from EVE_AI.components.training import Training
 from EVE_AI import logger
+import warnings
+
+warnings.filterwarnings("ignore")
 
 STAGE_NAME = "Training"
 
