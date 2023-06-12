@@ -1,7 +1,9 @@
 from EVE_AI.constants import *
 import os
 from EVE_AI.utils.common import read_yaml, create_directories
-from EVE_AI.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig, PrepareBaseTokenizerConfig, TrainingConfig)
+from EVE_AI.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig,
+                                         PrepareBaseTokenizerConfig, TrainingConfig,
+                                         EvaluationConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -80,3 +82,13 @@ class ConfigurationManager:
         )
 
         return training_config
+
+    def get_validation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            path_of_model=self.config.training.trained_model_path,
+            path_of_tokenizer=self.config.prepare_fitted_tokenizer.fitted_tokenizer_path,
+            test_data=os.path.join(self.config.data_ingestion.unzip_dir, "test.csv"),
+            all_params=self.params,
+            params_verbose=self.params.VERBOSE
+        )
+        return eval_config
