@@ -23,7 +23,14 @@ class PrepareBaseTokenizerConfig:
     base_tokenizer_path: Path
 
 @dataclass(frozen=True)
-class PrepareCallbacksConfig:
+class TrainingConfig:
     root_dir: Path
-    tensorboard_root_log_dir: Path
-    checkpoint_model_filepath: Path
+    trained_model_path: Path
+    base_model_path: Path
+    base_tokenizer_path: Path
+    fitted_tokenizer_path: Path
+    training_data: Path
+    validation_data: Path
+    params_learning_rate: float
+    params_depth: int
+    params_verbose: int
