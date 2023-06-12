@@ -17,8 +17,8 @@ class PrepareBaseModelTrainingPipeline:
         prepare_base_model = PrepareBaseModel(config_model=prepare_base_model_config,
                                               config_tokenizer=prepare_base_tokenizer_config)
 
-        prepare_base_model.get_base_model()
-        prepare_base_model.update_base_model()
+        prepare_base_model.get_ml_model()
+        prepare_base_model.get_tokenizer()
 
 
 
