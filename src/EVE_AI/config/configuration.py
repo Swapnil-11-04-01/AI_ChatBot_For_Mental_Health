@@ -65,7 +65,8 @@ class ConfigurationManager:
         training_data = os.path.join(self.config.data_ingestion.unzip_dir, "training.csv")
         validation_data = os.path.join(self.config.data_ingestion.unzip_dir, "validation.csv")
         create_directories([
-            Path(training.root_dir)
+            Path(training.root_dir),
+            Path(prepare_fitted_tokenizer.root_dir)
         ])
 
         training_config = TrainingConfig(
@@ -76,8 +77,6 @@ class ConfigurationManager:
             fitted_tokenizer_path=Path(prepare_fitted_tokenizer.fitted_tokenizer_path),
             training_data=Path(training_data),
             validation_data=Path(validation_data),
-            params_learning_rate=params.LEARNING_RATE,
-            params_depth=params.DEPTH,
             params_verbose=params.VERBOSE
         )
 
@@ -88,7 +87,6 @@ class ConfigurationManager:
             path_of_model=self.config.training.trained_model_path,
             path_of_tokenizer=self.config.prepare_fitted_tokenizer.fitted_tokenizer_path,
             test_data=os.path.join(self.config.data_ingestion.unzip_dir, "test.csv"),
-            all_params=self.params,
-            params_verbose=self.params.VERBOSE
+            all_params=self.params
         )
         return eval_config
