@@ -31,8 +31,6 @@ class TrainingConfig:
     fitted_tokenizer_path: Path
     training_data: Path
     validation_data: Path
-    params_learning_rate: float
-    params_depth: int
     params_verbose: int
 
 @dataclass(frozen=True)
@@ -41,4 +39,3 @@ class EvaluationConfig:
     path_of_tokenizer: Path
     test_data: Path
     all_params: dict
-    params_verbose: int
