@@ -8,7 +8,8 @@ import warnings
 warnings.filterwarnings("ignore")
 
 class PrepareBaseModel:
-    def __init__(self, config_model: PrepareBaseModelConfig, config_tokenizer: PrepareBaseTokenizerConfig):
+    def __init__(self, config_model: PrepareBaseModelConfig,
+                 config_tokenizer: PrepareBaseTokenizerConfig):
         self.config_model = config_model
         self.config_tokenizer = config_tokenizer
 
