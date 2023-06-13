@@ -1,6 +1,8 @@
 import pickle
 from pathlib import Path
 import pandas as pd
+import re
+from nltk.stem import PorterStemmer
 from EVE_AI.entity.config_entity import (TrainingConfig)
 import warnings
 
@@ -18,22 +20,33 @@ class Training:
         with open(self.config.base_tokenizer_path, 'rb') as f:
             self.tokenizer = pickle.load(f)
 
-    def train_valid_generator(self):
-        self.training_data_frame = pd.read_csv(self.config.training_data)
-        self.train_text_generator = self.training_data_frame.iloc[:,0]
-        self.train_labels_generator = self.training_data_frame.iloc[:,1]
 
-        self.validation_data_frame = pd.read_csv(self.config.validation_data)
-        self.valid_text_generator = self.validation_data_frame.iloc[:,0]
-        self.valid_labels_generator = self.validation_data_frame.iloc[:,1]
+    @staticmethod
+    def preprocess_text(text):
+        # stemmer = PorterStemmer()
+        tokens = re.sub(r'[^\w\s]', '', text).lower()
+        # tokens = tokens.split()
+        # stemmed_words = " ".join([stemmer.stem(word) for word in tokens])
+        return tokens
 
     @staticmethod
     def save_model(path: Path, model):
         with open(path, 'wb') as f:
             pickle.dump(model, f)
 
-    def train(self):
+    def train_valid_generator(self):
+        self.training_data_frame = pd.read_csv(self.config.training_data)
+        self.train_text_generator = self.training_data_frame.iloc[:,0]
+        self.train_text_generator = self.train_text_generator.apply(self.preprocess_text)
+        self.train_labels_generator = self.training_data_frame.iloc[:,1]
 
+        self.validation_data_frame = pd.read_csv(self.config.validation_data)
+        self.valid_text_generator = self.validation_data_frame.iloc[:,0]
+        self.valid_text_generator = self.valid_text_generator.apply(self.preprocess_text)
+        self.valid_labels_generator = self.validation_data_frame.iloc[:,1]
+
+    def train(self):
+        self.save_model(path=self.config.preprocessor_path, model=self.preprocess_text)
         self.tokenized_training_data = self.tokenizer.fit_transform(self.train_text_generator.tolist())
         self.train_features = self.tokenized_training_data.toarray()
 
