@@ -33,4 +33,4 @@ prepare_fitted_tokenizer:
 
 training:
   root_dir: artifacts/training
-  trained_model_path: artifacts/training/model_v5.pkl
+  trained_model_path: artifacts/training/model.pkl
