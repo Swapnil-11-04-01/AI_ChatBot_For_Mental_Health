@@ -4,7 +4,7 @@ stages:
     cmd: python src/EVE_AI/pipeline/stage_02_prepare_base_model.py
     deps:
     - path: config/config.yaml
-      md5: 982a9ebe9b725a77ee77a20e48597d64
+      md5: 08aede5f525eb9b46b77dbb78a52738f
       size: 976
     - path: src/EVE_AI/components/prepare_base_model.py
       md5: a3f2973ba9b0aea41a99a797d020c4aa
@@ -28,7 +28,7 @@ stages:
     cmd: python src/EVE_AI/pipeline/stage_01_data_ingestion.py
     deps:
     - path: config/config.yaml
-      md5: 982a9ebe9b725a77ee77a20e48597d64
+      md5: 08aede5f525eb9b46b77dbb78a52738f
       size: 976
     - path: src/EVE_AI/components/data_ingestion.py
       md5: 532f3509750330eb16a8c147dc3eedb7
@@ -38,16 +38,16 @@ stages:
       size: 943
     outs:
     - path: artifacts/data_ingestion
-      md5: 5c5530a957765c36e71ad764d96e51c4.dir
-      size: 2748724
-      nfiles: 4
+      md5: a123d89c63cc187ed5b7724ee075d07b.dir
+      size: 18965569
+      nfiles: 7
   training:
     cmd: python src/EVE_AI/pipeline/stage_03_training.py
     deps:
     - path: artifacts/data_ingestion
-      md5: 5c5530a957765c36e71ad764d96e51c4.dir
-      size: 2748724
-      nfiles: 4
+      md5: a123d89c63cc187ed5b7724ee075d07b.dir
+      size: 18965569
+      nfiles: 7
     - path: artifacts/prepare_base_model
       md5: 41f68bd88ba2d1e50dade2e7e5400ced.dir
       size: 139
@@ -57,7 +57,7 @@ stages:
       size: 455
       nfiles: 1
     - path: config/config.yaml
-      md5: 982a9ebe9b725a77ee77a20e48597d64
+      md5: 08aede5f525eb9b46b77dbb78a52738f
       size: 976
     - path: src/EVE_AI/components/training.py
       md5: 730d7fa644814e44ae5144e884a6244d
@@ -70,28 +70,28 @@ stages:
         VERBOSE: 3
     outs:
     - path: artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
-      md5: 5d2de605366ade0b153e1998087af7b5
+      md5: 9280a4dffde0ae4a0d9d12205d37cd04
       size: 441963
     - path: artifacts/training/model.pkl
-      md5: 2b1de84c6b383c1854392d04771dd8c2
+      md5: 51b7126f82939330960c8cd2f4904feb
       size: 1144355
   evaluation:
     cmd: python src/EVE_AI/pipeline/stage_04_evaluation.py
     deps:
     - path: artifacts/data_ingestion
-      md5: 5c5530a957765c36e71ad764d96e51c4.dir
-      size: 2748724
-      nfiles: 4
+      md5: a123d89c63cc187ed5b7724ee075d07b.dir
+      size: 18965569
+      nfiles: 7
     - path: artifacts/prepare_fitted_tokenizer
-      md5: 743145ae059a94485db6ae5f9d232f98.dir
+      md5: c0cc57f397b629af6a2d5e6f69317469.dir
       size: 441963
       nfiles: 1
     - path: artifacts/training
-      md5: c77c2f09a6607a9fb8146c70041df47c.dir
+      md5: 0b30504db69859478d197e82b2add20c.dir
       size: 1144355
       nfiles: 1
     - path: config/config.yaml
-      md5: 982a9ebe9b725a77ee77a20e48597d64
+      md5: 08aede5f525eb9b46b77dbb78a52738f
       size: 976
     - path: src/EVE_AI/components/evaluation.py
       md5: 7e245d6a33d14d011f583cbfb65a1588
