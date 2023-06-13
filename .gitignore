@@ -15,3 +15,4 @@ logs
 research/trial_and_error.py
 catboost_info
 scores*
+__pycache__
