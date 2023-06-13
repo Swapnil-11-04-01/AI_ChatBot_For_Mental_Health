@@ -34,4 +34,4 @@ class Evaluation:
 
     def save_score(self):
         scores = {"accuracy": f'{round(self.score*100, 2)}%'}
-        save_json(path=Path("scores_v5.json"), data=scores)
+        save_json(path=Path("scores.json"), data=scores)
