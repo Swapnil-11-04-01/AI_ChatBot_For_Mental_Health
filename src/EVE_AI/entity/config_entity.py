@@ -29,6 +29,7 @@ class TrainingConfig:
     base_model_path: Path
     base_tokenizer_path: Path
     fitted_tokenizer_path: Path
+    preprocessor_path: Path
     training_data: Path
     validation_data: Path
     params_verbose: int
@@ -37,5 +38,6 @@ class TrainingConfig:
 class EvaluationConfig:
     path_of_model: Path
     path_of_tokenizer: Path
+    path_of_preprocessor: Path
     test_data: Path
     all_params: dict
