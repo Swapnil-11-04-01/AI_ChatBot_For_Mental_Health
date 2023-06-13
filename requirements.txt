@@ -10,5 +10,8 @@ types-PyYAML
 joblib
 catboost
 nltk
+pygame
+SpeechRecognition
+pyttsx3
 
 # -e .
