@@ -61,12 +61,14 @@ class ConfigurationManager:
         prepare_base_model = self.config.prepare_base_model
         prepare_base_tokenizer = self.config.prepare_base_tokenizer
         prepare_fitted_tokenizer = self.config.prepare_fitted_tokenizer
+        preprocessor = self.config.preprocessor
         params = self.params
         training_data = os.path.join(self.config.data_ingestion.unzip_dir, "training.csv")
         validation_data = os.path.join(self.config.data_ingestion.unzip_dir, "validation.csv")
         create_directories([
             Path(training.root_dir),
-            Path(prepare_fitted_tokenizer.root_dir)
+            Path(prepare_fitted_tokenizer.root_dir),
+            Path(preprocessor.root_dir)
         ])
 
         training_config = TrainingConfig(
@@ -75,6 +77,7 @@ class ConfigurationManager:
             base_model_path=Path(prepare_base_model.base_model_path),
             base_tokenizer_path=Path(prepare_base_tokenizer.base_tokenizer_path),
             fitted_tokenizer_path=Path(prepare_fitted_tokenizer.fitted_tokenizer_path),
+            preprocessor_path=Path(preprocessor.preprocessor_path),
             training_data=Path(training_data),
             validation_data=Path(validation_data),
             params_verbose=params.VERBOSE
@@ -86,6 +89,7 @@ class ConfigurationManager:
         eval_config = EvaluationConfig(
             path_of_model=self.config.training.trained_model_path,
             path_of_tokenizer=self.config.prepare_fitted_tokenizer.fitted_tokenizer_path,
+            path_of_preprocessor=self.config.preprocessor.preprocessor_path,
             test_data=os.path.join(self.config.data_ingestion.unzip_dir, "test.csv"),
             all_params=self.params
         )
