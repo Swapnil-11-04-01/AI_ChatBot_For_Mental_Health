@@ -21,9 +21,11 @@ class Evaluation:
     def _valid_generator(self):
         self.test_data = pd.read_csv(self.config.test_data)
 
+        self.preprocessor = self.load_model(self.config.path_of_preprocessor)
         self.tokenizer = self.load_model(self.config.path_of_tokenizer)
 
         self.X_test = self.test_data.iloc[:, 0]
+        self.X_test = self.X_test.apply(self.preprocessor)
         self.X_test = self.tokenizer.transform(self.X_test.tolist()).toarray()
         self.y_test = self.test_data.iloc[:, 1]
 
