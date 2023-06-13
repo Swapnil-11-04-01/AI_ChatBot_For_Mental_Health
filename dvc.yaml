@@ -3,6 +3,7 @@ stages:
     cmd: python src/EVE_AI/pipeline/stage_01_data_ingestion.py
     deps:
       - src/EVE_AI/pipeline/stage_01_data_ingestion.py
+      - src/EVE_AI/components/data_ingestion.py
       - config/config.yaml
     outs:
       - artifacts/data_ingestion
@@ -13,14 +14,15 @@ stages:
     cmd: python src/EVE_AI/pipeline/stage_02_prepare_base_model.py
     deps:
       - src/EVE_AI/pipeline/stage_02_prepare_base_model.py
+      - src/EVE_AI/components/prepare_base_model.py
       - config/config.yaml
     params:
       - LEARNING_RATE
       - DEPTH
       - ITERATIONS
     outs:
-      - artifacts/prepare_base_model
-      - artifacts/prepare_base_tokenizer
+      - artifacts/prepare_base_model/base_model.pkl
+      - artifacts/prepare_base_tokenizer/prepare_base_tokenizer.pkl
 
 
 
@@ -28,6 +30,7 @@ stages:
     cmd: python src/EVE_AI/pipeline/stage_03_training.py
     deps:
       - src/EVE_AI/pipeline/stage_03_training.py
+      - src/EVE_AI/components/training.py
       - config/config.yaml
       - artifacts/data_ingestion
       - artifacts/prepare_base_model
@@ -35,8 +38,8 @@ stages:
     params:
       - VERBOSE
     outs:
-      - artifacts/prepare_fitted_tokenizer
-      - artifacts/training
+      - artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
+      - artifacts/training/model.pkl
 
 
 
@@ -44,6 +47,7 @@ stages:
     cmd: python src/EVE_AI/pipeline/stage_04_evaluation.py
     deps:
       - src/EVE_AI/pipeline/stage_04_evaluation.py
+      - src/EVE_AI/components/evaluation.py
       - config/config.yaml
       - artifacts/data_ingestion
       - artifacts/prepare_fitted_tokenizer
