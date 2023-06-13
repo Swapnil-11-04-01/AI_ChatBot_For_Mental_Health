@@ -31,6 +31,13 @@ prepare_fitted_tokenizer:
 
 
 
+preprocessor:
+  root_dir: artifacts/prepare_preprocessor
+  preprocessor_path: artifacts/prepare_preprocessor/prepare_preprocessor.pkl
+
+
+
+
 training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model.pkl
