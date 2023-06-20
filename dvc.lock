@@ -1,0 +1,105 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/EVE_AI/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      md5: 3c1b8d5c74d04c16367d4964ecfa67e4
+      size: 976
+    - path: src/EVE_AI/components/data_ingestion.py
+      md5: 532f3509750330eb16a8c147dc3eedb7
+      size: 1229
+    - path: src/EVE_AI/pipeline/stage_01_data_ingestion.py
+      md5: 870d485ad8d645af5e280cbbc483b261
+      size: 943
+    outs:
+    - path: artifacts/data_ingestion
+      md5: 4aeab2f3c91f2911fc4b9ca99f1f80e9.dir
+      size: 23265901
+      nfiles: 7
+  prepare_base_model:
+    cmd: python src/EVE_AI/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: config/config.yaml
+      md5: 3c1b8d5c74d04c16367d4964ecfa67e4
+      size: 976
+    - path: src/EVE_AI/components/prepare_base_model.py
+      md5: a3f2973ba9b0aea41a99a797d020c4aa
+      size: 1291
+    - path: src/EVE_AI/pipeline/stage_02_prepare_base_model.py
+      md5: 5b668aca9fc11e62bd7a2383af755fb4
+      size: 1213
+    params:
+      params.yaml:
+        DEPTH: 8
+        ITERATIONS: 1500
+        LEARNING_RATE: 0.4
+    outs:
+    - path: artifacts/prepare_base_model/base_model.pkl
+      md5: 747ee3111d5d9b8c44fd29873f1d1165
+      size: 139
+    - path: artifacts/prepare_base_tokenizer/prepare_base_tokenizer.pkl
+      md5: ba518abab2b2756feee796b419378c07
+      size: 455
+  training:
+    cmd: python src/EVE_AI/pipeline/stage_03_training.py
+    deps:
+    - path: artifacts/data_ingestion
+      md5: 4aeab2f3c91f2911fc4b9ca99f1f80e9.dir
+      size: 23265901
+      nfiles: 7
+    - path: artifacts/prepare_base_model
+      md5: d13adff76c08834805ae1044ac2790d0.dir
+      size: 139
+      nfiles: 1
+    - path: artifacts/prepare_base_tokenizer
+      md5: 10fc323eb5dc3ae9ea5d10b2c6a7559c.dir
+      size: 455
+      nfiles: 1
+    - path: config/config.yaml
+      md5: 3c1b8d5c74d04c16367d4964ecfa67e4
+      size: 976
+    - path: src/EVE_AI/components/training.py
+      md5: 730d7fa644814e44ae5144e884a6244d
+      size: 2659
+    - path: src/EVE_AI/pipeline/stage_03_training.py
+      md5: 35c87adde96572853f8c5b9fcea0e94d
+      size: 972
+    params:
+      params.yaml:
+        VERBOSE: 3
+    outs:
+    - path: artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
+      md5: 6fd130d71400dbdd836e49048c2cc86e
+      size: 441963
+    - path: artifacts/training/model.pkl
+      md5: 247aae405169f865089e471e3ba65f46
+      size: 22381595
+  evaluation:
+    cmd: python src/EVE_AI/pipeline/stage_04_evaluation.py
+    deps:
+    - path: artifacts/data_ingestion
+      md5: 4aeab2f3c91f2911fc4b9ca99f1f80e9.dir
+      size: 23265901
+      nfiles: 7
+    - path: artifacts/prepare_fitted_tokenizer
+      md5: a9fd691c3b270619d7ae3568b29ad2e1.dir
+      size: 441963
+      nfiles: 1
+    - path: artifacts/training
+      md5: 32331250b18854a219a8bae65310770c.dir
+      size: 22381595
+      nfiles: 1
+    - path: config/config.yaml
+      md5: 3c1b8d5c74d04c16367d4964ecfa67e4
+      size: 976
+    - path: src/EVE_AI/components/evaluation.py
+      md5: 7e245d6a33d14d011f583cbfb65a1588
+      size: 1376
+    - path: src/EVE_AI/pipeline/stage_04_evaluation.py
+      md5: a55e0d11124d82e2c8cd0864ddc64c11
+      size: 935
+    outs:
+    - path: scores.json
+      md5: fd1dcdeb4395a59600ba44581424e23b
+      size: 30
