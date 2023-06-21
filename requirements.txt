@@ -13,5 +13,7 @@ nltk
 pygame
 SpeechRecognition
 pyttsx3
+streamlit
+streamlit-chat
 
 # -e .
