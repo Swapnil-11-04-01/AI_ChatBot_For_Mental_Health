@@ -41,3 +41,9 @@ preprocessor:
 training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model.pkl
+
+
+
+
+base:
+  root_data_dir: artifacts/data_ingestion/intent.csv
