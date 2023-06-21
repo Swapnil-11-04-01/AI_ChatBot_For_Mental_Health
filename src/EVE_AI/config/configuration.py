@@ -3,7 +3,8 @@ import os
 from EVE_AI.utils.common import read_yaml, create_directories
 from EVE_AI.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig,
                                          PrepareBaseTokenizerConfig, TrainingConfig,
-                                         EvaluationConfig)
+                                         EvaluationConfig, BaseConfig)
+
 
 class ConfigurationManager:
     def __init__(
@@ -94,3 +95,12 @@ class ConfigurationManager:
             all_params=self.params
         )
         return eval_config
+
+    def get_base_config(self) -> BaseConfig:
+        base_config = BaseConfig(
+            root_data_dir=self.config.base.root_data_dir,
+            base_preprocessor_path=self.config.preprocessor.preprocessor_path,
+            base_tokenizer_path=self.config.prepare_base_tokenizer.base_tokenizer_path,
+            base_nodel_path=self.config.training.trained_model_path
+        )
+        return base_config
