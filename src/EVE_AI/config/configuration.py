@@ -101,6 +101,6 @@ class ConfigurationManager:
             root_data_dir=self.config.base.root_data_dir,
             base_preprocessor_path=self.config.preprocessor.preprocessor_path,
             base_tokenizer_path=self.config.prepare_base_tokenizer.base_tokenizer_path,
-            base_nodel_path=self.config.training.trained_model_path
+            trained_model_path=self.config.training.trained_model_path
         )
         return base_config
