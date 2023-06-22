@@ -1,14 +1,13 @@
 import pickle
 import pyttsx3
 from tqdm import tqdm
-import time
 from pathlib import Path
+from pathlib import Path
+import time
 import pandas as pd
-import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from EVE_AI.entity.config_entity import BaseConfig
 import warnings
-from EVE_AI.config.configuration import ConfigurationManager
 
 
 warnings.filterwarnings("ignore")
@@ -32,6 +31,8 @@ class Base:
         self.negative = 0.0
         self.positive = 0.0
         self.total_score = 0.0
+
+        self.name = None
 
         self.emotion = {
             0: "Sadness",
@@ -146,6 +147,18 @@ class Base:
             'd': 3
         }
 
+    @staticmethod
+    def save_model(path: Path, model):
+        with open(path, 'wb') as f:
+            pickle.dump(model, f)
+
+    @staticmethod
+    def load_model(path: Path):
+        with open(path, 'rb') as f:
+            model = pickle.load(f)
+        return model
+
+
     def speak(self, audio, rate):
         self.engine.setProperty('rate', rate * 0.86)
         self.engine.say(audio)
@@ -217,15 +230,18 @@ class Base:
         for key, values in tqdm(self.intent_dict.items()):
             self.intent_dict[key] = self.vectorizer.transform([values])
 
+        self.save_model(self.config.distance_vector_path, self.intent_dict)
+
 
     def intent(self, message):
+        intent_dict = self.load_model(self.config.distance_vector_path)
         message = self.preprocessor(message)
         message = self.vectorizer.transform([message])
-        vectors_array = [v.toarray().flatten() for v in self.intent_dict.values()]
+        vectors_array = [v.toarray().flatten() for v in intent_dict.values()]
         similarities = cosine_similarity(message.reshape(1, -1), vectors_array)
         closest_index = similarities.argmin()
-        emotion = list(self.intent_dict.keys())[closest_index]
-        return emotion, similarities
+        emotion = list(intent_dict.keys())[closest_index]
+        return emotion
 
     def respond(self, message):
         emotion = self.intent(message)
@@ -369,13 +385,3 @@ class Base:
         self.speak('Here is a thought that might motivate you!')
         time.sleep(1)
         self.speak(' My Recovery Must Come First So That Everything I Love In Life Doesn’t Have To Come Last.')
-
-
-if __name__ == '__main__':
-    config = ConfigurationManager()
-    base_config = config.get_base_config()
-    base = Base(config=base_config)
-    base.intent_data_modifier(base.intent_data)
-    emotion, sim = base.intent("I am feeling very anxious lately and I am having anxiety attacks")
-    print(emotion)
-    print(sim)
