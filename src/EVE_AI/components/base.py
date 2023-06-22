@@ -32,7 +32,7 @@ class Base:
         self.positive = 0.0
         self.total_score = 0.0
 
-        self.name = None
+        self.user_name = None
 
         self.emotion = {
             0: "Sadness",
@@ -54,6 +54,20 @@ class Base:
         }
 
         self.responses = {}
+
+        self.questions_0 = {
+            "intro": "Hii! I'm EVE, an Enhanced Virtual Emotional Artificial Intelligence. Find me as your friend and a personal companion. Before we proceed, may I know your first name?",
+            "name": "That's a nice name!. So, how are you doing",
+            "q1": "Is there anything you want to talk about?",
+            "q3": "How's your stress level lately",
+            "q4": "Have you been eating and sleeping",
+            "q5": "Would you be willing to talk to someone",
+            "q6": "What would you like to achieve from our conversation?",
+            "q7": "Can you tell me a bit about yourself and your background?",
+            "q8": "What are some of the challenges or difficulties you've been facing recently?",
+            "q9": "How have these challenges been impacting your daily life or overall well-being?",
+            "q10": "Is there anything else you would like me to know?"
+        }
 
         self.questions_1 = {"depression": ["How have you been feeling lately?",
                                          "Have you noticed any changes in your mood or energy levels?",
