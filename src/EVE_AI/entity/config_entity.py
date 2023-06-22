@@ -52,4 +52,4 @@ class BaseConfig:
     root_data_dir: Path
     base_preprocessor_path: Path
     base_tokenizer_path: Path
-    base_model_path: Path
+    trained_model_path: Path
