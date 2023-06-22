@@ -47,3 +47,4 @@ training:
 
 base:
   root_data_dir: artifacts/data_ingestion/intent.csv
+  distance_vector_path: artifacts/distance_vector/distance_vector.pkl
