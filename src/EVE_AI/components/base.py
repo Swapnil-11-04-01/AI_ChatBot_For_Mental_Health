@@ -229,7 +229,7 @@ class Base:
 
     def respond(self, message):
         emotion = self.intent(message)
-        return self.questions_2[emotion]
+        return self.questions_1[emotion]
 
 
     def quiz(self, name):
@@ -249,7 +249,7 @@ class Base:
 
         inp = input().lower()
         if inp == 'okay':
-            for sentence in self.questions:
+            for sentence in self.questions_2:
                 time.sleep(1)
                 self.speak(sentence)
                 resp = input().lower()
