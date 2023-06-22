@@ -23,11 +23,12 @@ class Training:
 
     @staticmethod
     def preprocess_text(text):
-        # stemmer = PorterStemmer()
-        tokens = re.sub(r'[^\w\s]', '', text).lower()
-        # tokens = tokens.split()
-        # stemmed_words = " ".join([stemmer.stem(word) for word in tokens])
-        return tokens
+        text = re.sub('[^a-zA-Z]', ' ', text)
+        text = text.lower()
+        text = text.split()
+        text = [PorterStemmer().stem(word) for word in text]
+        text = " ".join(text)
+        return text
 
     @staticmethod
     def save_model(path: Path, model):
