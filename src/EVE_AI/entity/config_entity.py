@@ -53,3 +53,4 @@ class BaseConfig:
     base_preprocessor_path: Path
     base_tokenizer_path: Path
     trained_model_path: Path
+    distance_vector_path: Path
