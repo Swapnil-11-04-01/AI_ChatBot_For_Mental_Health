@@ -1,19 +1,22 @@
 import pickle
 import pyttsx3
-import re
+from tqdm import tqdm
 import time
 from pathlib import Path
 import pandas as pd
-import re
-from nltk.stem import PorterStemmer
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 from EVE_AI.entity.config_entity import BaseConfig
 import warnings
+from EVE_AI.config.configuration import ConfigurationManager
+
 
 warnings.filterwarnings("ignore")
 
 
 class Base:
     def __init__(self, config: BaseConfig):
+        self.intent_dict = {}
         self.config = config
 
         self.engine = pyttsx3.init('sapi5')
@@ -21,10 +24,10 @@ class Base:
         self.voice = self.engine.getProperty('voices')
         self.engine.setProperty('voice', self.voice[1].id)
 
-        self.intent_data = pd.read_csv(self.config.root_data_dir, header=True)
+        self.intent_data = pd.read_csv(self.config.root_data_dir)
         self.preprocessor = pickle.load(open(self.config.base_preprocessor_path, "rb"))
         self.vectorizer = pickle.load(open(self.config.base_tokenizer_path, "rb"))
-        self.model = pickle.load(open(self.config.base_model_path, "rb"))
+        self.model = pickle.load(open(self.config.trained_model_path, "rb"))
 
         self.negative = 0.0
         self.positive = 0.0
@@ -51,11 +54,67 @@ class Base:
 
         self.responses = {}
 
-        self.questions = ["Do you have little interest or pleasure in doing things?",
-                          "Feeling down, depressed, or hopeless",
-                          "Trouble falling or staying asleep, or sleeping too much",
-                          "Feeling tired or having little energy",
-                          "Feeling bad about yourself - or that you are a failure or have let yourself or your family down"]
+        self.questions = {"depression": ["How are you feeling right now?",
+                                      "Is there anything on your mind that's causing you distress?",
+                                      "Have you noticed any changes in your mood or emotions recently?",
+                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
+                                      "Do you find it hard to relax or find peace of mind at times?",
+                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
+                                      "Have you noticed any physical sensations that accompany your emotional state?",
+                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
+                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          "anxiety": ["How are you feeling right now?",
+                                      "Is there anything on your mind that's causing you distress?",
+                                      "Have you noticed any changes in your mood or emotions recently?",
+                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
+                                      "Do you find it hard to relax or find peace of mind at times?",
+                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
+                                      "Have you noticed any physical sensations that accompany your emotional state?",
+                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
+                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          "anxiety": ["How are you feeling right now?",
+                                      "Is there anything on your mind that's causing you distress?",
+                                      "Have you noticed any changes in your mood or emotions recently?",
+                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
+                                      "Do you find it hard to relax or find peace of mind at times?",
+                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
+                                      "Have you noticed any physical sensations that accompany your emotional state?",
+                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
+                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          "anxiety": ["How are you feeling right now?",
+                                      "Is there anything on your mind that's causing you distress?",
+                                      "Have you noticed any changes in your mood or emotions recently?",
+                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
+                                      "Do you find it hard to relax or find peace of mind at times?",
+                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
+                                      "Have you noticed any physical sensations that accompany your emotional state?",
+                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
+                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          "anxiety": ["How are you feeling right now?",
+                                      "Is there anything on your mind that's causing you distress?",
+                                      "Have you noticed any changes in your mood or emotions recently?",
+                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
+                                      "Do you find it hard to relax or find peace of mind at times?",
+                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
+                                      "Have you noticed any physical sensations that accompany your emotional state?",
+                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
+                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          "anxiety": ["How are you feeling right now?",
+                                      "Is there anything on your mind that's causing you distress?",
+                                      "Have you noticed any changes in your mood or emotions recently?",
+                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
+                                      "Do you find it hard to relax or find peace of mind at times?",
+                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
+                                      "Have you noticed any physical sensations that accompany your emotional state?",
+                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
+                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          }
 
         self.dictionary = {
             'a': 0,
@@ -132,17 +191,29 @@ class Base:
         return preds, feel
 
 
+    def intent_data_modifier(self, data):
+        combined_intent_vector = []
+        for col in tqdm(data.columns):
+            self.intent_dict[col] = data[col].str.cat(sep=' ')
+            combined_intent_vector.append(self.intent_dict[col])
+        combined_intent_vector = pd.Series(combined_intent_vector).apply(self.preprocessor)
+        self.vectorizer.fit(pd.Series(combined_intent_vector))
+        for key, values in tqdm(self.intent_dict.items()):
+            self.intent_dict[key] = self.vectorizer.transform([values])
+
+
     def intent(self, message):
-        for words in self.intents.keys():
-            pattern = re.compile('|'.join([syn for syn in self.intents[words]]))
-            match = pattern.search(message)
-            if match:
-                return words
-        return 'default'
+        message = self.preprocessor(message)
+        message = self.vectorizer.transform([message])
+        vectors_array = [v.toarray().flatten() for v in self.intent_dict.values()]
+        similarities = cosine_similarity(message.reshape(1, -1), vectors_array)
+        closest_index = similarities.argmin()
+        emotion = list(self.intent_dict.keys())[closest_index]
+        return emotion, similarities
 
     def respond(self, message):
-        word = self.intent(message)
-        return self.responses[word]
+        emotion = self.intent(message)
+        # return self.responses[word]
 
 
     def quiz(self, name):
@@ -282,3 +353,13 @@ class Base:
         self.speak('Here is a thought that might motivate you!')
         time.sleep(1)
         self.speak(' My Recovery Must Come First So That Everything I Love In Life Doesn’t Have To Come Last.')
+
+
+if __name__ == '__main__':
+    config = ConfigurationManager()
+    base_config = config.get_base_config()
+    base = Base(config=base_config)
+    base.intent_data_modifier(base.intent_data)
+    emotion, sim = base.intent("I am feeling very anxious lately and I am having anxiety attacks")
+    print(emotion)
+    print(sim)
