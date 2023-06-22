@@ -73,7 +73,7 @@ class Base:
                                       "Have you noticed any physical sensations that accompany your emotional state?",
                                       "Are there any particular areas of your life where you're feeling overwhelmed?",
                                       "Have you tried any strategies to manage stress or find balance when things feel challenging?",
-                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"],
                           "paranoia": ["How have you been feeling lately?",
                                        "Have you noticed any changes in your thoughts or beliefs about others or the world around you?",
                                        "Are there specific situations or interactions that make you feel more suspicious or on edge?",
@@ -113,7 +113,7 @@ class Base:
                                                    "Are there any particular coping mechanisms or strategies that have helped you manage your emotions or challenges in the past?",
                                                    "Is there anyone in your support network whom you feel comfortable discussing your concerns or difficulties related to your personality?"
                                                    "Have you explored any therapeutic interventions or techniques that have been beneficial for you?",
-                                                   "Is there anything specific you'd like to discuss or explore further to support your well-being and manage the challenges associated with your personality?"]
+                                                   "Is there anything specific you'd like to discuss or explore further to support your well-being and manage the challenges associated with your personality?"],
                           "happy": ["How have you been feeling lately?",
                                                    "What are the things that bring you joy and happiness in your life?",
                                                    "Have you noticed any changes in your overall level of happiness or satisfaction?",
