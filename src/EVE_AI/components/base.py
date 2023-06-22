@@ -54,16 +54,16 @@ class Base:
 
         self.responses = {}
 
-        self.questions = {"depression": ["How are you feeling right now?",
-                                      "Is there anything on your mind that's causing you distress?",
-                                      "Have you noticed any changes in your mood or emotions recently?",
-                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
-                                      "Do you find it hard to relax or find peace of mind at times?",
-                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
-                                      "Have you noticed any physical sensations that accompany your emotional state?",
-                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
-                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
-                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+        self.questions_1 = {"depression": ["How have you been feeling lately?",
+                                         "Have you noticed any changes in your mood or energy levels?",
+                                         "Are there any specific challenges or difficulties you're currently facing?",
+                                         "Do you find it hard to find joy or interest in activities that used to bring you pleasure?",
+                                         "Are there times when you feel a sense of sadness or emptiness that you can't quite explain?",
+                                         "Have you noticed any changes in your sleep patterns or appetite?",
+                                         "Are there any negative thoughts or self-critical beliefs that seem to dominate your thinking?",
+                                         "Have you experienced a loss of motivation or difficulty concentrating on tasks?",
+                                         "Have you tried any strategies or activities that have helped improve your mood in the past?",
+                                         "Is there anything you'd like to discuss or explore further to support your emotional well-being?"],
                           "anxiety": ["How are you feeling right now?",
                                       "Is there anything on your mind that's causing you distress?",
                                       "Have you noticed any changes in your mood or emotions recently?",
@@ -74,47 +74,63 @@ class Base:
                                       "Are there any particular areas of your life where you're feeling overwhelmed?",
                                       "Have you tried any strategies to manage stress or find balance when things feel challenging?",
                                       "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
-                          "anxiety": ["How are you feeling right now?",
-                                      "Is there anything on your mind that's causing you distress?",
-                                      "Have you noticed any changes in your mood or emotions recently?",
-                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
-                                      "Do you find it hard to relax or find peace of mind at times?",
-                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
-                                      "Have you noticed any physical sensations that accompany your emotional state?",
-                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
-                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
-                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
-                          "anxiety": ["How are you feeling right now?",
-                                      "Is there anything on your mind that's causing you distress?",
-                                      "Have you noticed any changes in your mood or emotions recently?",
-                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
-                                      "Do you find it hard to relax or find peace of mind at times?",
-                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
-                                      "Have you noticed any physical sensations that accompany your emotional state?",
-                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
-                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
-                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
-                          "anxiety": ["How are you feeling right now?",
-                                      "Is there anything on your mind that's causing you distress?",
-                                      "Have you noticed any changes in your mood or emotions recently?",
-                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
-                                      "Do you find it hard to relax or find peace of mind at times?",
-                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
-                                      "Have you noticed any physical sensations that accompany your emotional state?",
-                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
-                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
-                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
-                          "anxiety": ["How are you feeling right now?",
-                                      "Is there anything on your mind that's causing you distress?",
-                                      "Have you noticed any changes in your mood or emotions recently?",
-                                      "Are there any specific situations or challenges that you're finding difficult to navigate?",
-                                      "Do you find it hard to relax or find peace of mind at times?",
-                                      "Are there certain thoughts or worries that seem to occupy your mind more than usual?",
-                                      "Have you noticed any physical sensations that accompany your emotional state?",
-                                      "Are there any particular areas of your life where you're feeling overwhelmed?",
-                                      "Have you tried any strategies to manage stress or find balance when things feel challenging?",
-                                      "Is there anything you'd like to talk about or explore further to help improve your well-being?"]
+                          "paranoia": ["How have you been feeling lately?",
+                                       "Have you noticed any changes in your thoughts or beliefs about others or the world around you?",
+                                       "Are there specific situations or interactions that make you feel more suspicious or on edge?",
+                                       "Do you find it difficult to trust others or believe their intentions?",
+                                       "Are there times when you feel like you're being watched or monitored?",
+                                       "Have you noticed any physical sensations, such as increased heart rate or heightened awareness, when you experience paranoia?",
+                                       "Are there any specific thoughts or concerns that tend to occupy your mind and contribute to feelings of paranoia?",
+                                       "Have you found any strategies or coping mechanisms that have helped you manage or alleviate paranoid thoughts in the past?",
+                                       "Is there anyone you feel comfortable confiding in or discussing your concerns with?",
+                                       "Is there anything specific you'd like to explore or discuss further to help address your experiences of paranoia?"],
+                          "sleeping_disorder": ["How have you been sleeping lately?",
+                                                "Have you noticed any changes in your sleep patterns or difficulties falling asleep or staying asleep?",
+                                                "Are there any specific factors or concerns that you think might be affecting your sleep?",
+                                                "Do you feel rested and rejuvenated after waking up, or do you often feel tired and fatigued?",
+                                                "Are there any particular thoughts or worries that keep you awake at night?",
+                                                "Have you tried any strategies or techniques to improve your sleep quality?",
+                                                "Do you maintain a consistent sleep schedule, or do you have irregular sleep patterns?",
+                                                "Have you noticed any physical or emotional symptoms that could be linked to your sleeping difficulties?",
+                                                "Is there anything in your environment that might be impacting your sleep, such as noise, light, or temperature?",
+                                                "Is there anything specific you'd like to discuss or explore further to help improve your sleep?"],
+                          "substance_abuse": ["How have you been feeling lately?",
+                                              "Have you noticed any changes in your substance use patterns or behaviors?",
+                                              "Are there specific substances that you find yourself using more frequently or in larger amounts?",
+                                              "Do you feel a strong urge or craving to use substances?",
+                                              "Have you experienced any negative consequences or impacts on your life as a result of substance use?",
+                                              "Are there specific triggers or situations that tend to lead to substance use?",
+                                              "Have you tried any strategies or methods to reduce or control your substance use in the past?",
+                                              "Is there anyone in your support network whom you feel comfortable discussing your concerns about substance abuse with?",
+                                              "Are there any underlying emotional or psychological factors that you think might be contributing to your substance use?",
+                                              "Is there anything specific you'd like to explore or discuss further to address your substance abuse concerns?"],
+                          "personality_disorder": ["How have you been feeling lately?",
+                                                   "Have you noticed any patterns in your thoughts, emotions, or behaviors that seem to repeat themselves?",
+                                                   "Are there specific situations or interactions that tend to trigger difficulties or conflicts for you?",
+                                                   "Do you find it challenging to maintain stable relationships or experience difficulties with interpersonal dynamics?",
+                                                   "Are there any specific emotions or mood changes that you often struggle with?",
+                                                   "Have you noticed any patterns of impulsive or risky behaviors?",
+                                                   "Are there any particular coping mechanisms or strategies that have helped you manage your emotions or challenges in the past?",
+                                                   "Is there anyone in your support network whom you feel comfortable discussing your concerns or difficulties related to your personality?"
+                                                   "Have you explored any therapeutic interventions or techniques that have been beneficial for you?",
+                                                   "Is there anything specific you'd like to discuss or explore further to support your well-being and manage the challenges associated with your personality?"]
+                          "happy": ["How have you been feeling lately?",
+                                                   "What are the things that bring you joy and happiness in your life?",
+                                                   "Have you noticed any changes in your overall level of happiness or satisfaction?",
+                                                   "Are there any specific areas of your life where you feel unhappy or dissatisfied?",
+                                                   "What are some of the challenges or obstacles that you think might be impacting your happiness?",
+                                                   "Are there any activities or hobbies that you used to enjoy but no longer find fulfilling?",
+                                                   "Have you tried any strategies or techniques to improve your mood or overall happiness?",
+                                                   "Is there anyone in your support network whom you feel comfortable discussing your happiness concerns with?",
+                                                   "Are there any underlying factors or life events that you think might be influencing your happiness levels?",
+                                                   "Is there anything specific you'd like to explore or discuss further to enhance your happiness and well-being?"]
                           }
+
+        self.questions_2 = ["Do you have little interest or pleasure in doing things?",
+                            "Feeling down, depressed, or hopeless",
+                            "Trouble falling or staying asleep, or sleeping too much",
+                            "Feeling tired or having little energy",
+                            "Feeling bad about yourself - or that you are a failure or have let yourself or your family down"]
 
         self.dictionary = {
             'a': 0,
@@ -213,7 +229,7 @@ class Base:
 
     def respond(self, message):
         emotion = self.intent(message)
-        # return self.responses[word]
+        return self.questions_2[emotion]
 
 
     def quiz(self, name):
