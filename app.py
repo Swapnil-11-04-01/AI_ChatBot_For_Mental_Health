@@ -27,6 +27,7 @@ counter = 0
 
 
 def emotion_tracker():
+    print("SCORES: - ", eve.positive, eve.negative)
     labels = ['Positivity', 'Negativity']
     values = [eve.positive, eve.negative]
 
@@ -44,6 +45,7 @@ def emotion_tracker():
 
     return fig
 
+
 @cl.on_message
 async def generate_answer(input: str):
     global counter
@@ -52,64 +54,121 @@ async def generate_answer(input: str):
             reply = eve.questions_0['intro']
             eve.speak(reply)
             counter += 1
+            feel = None
+            preds = None
+            probab=None
         case 1:
             eve.user_name = input
             reply = eve.questions_0['name'] + ' ' + input
             eve.speak(reply)
             counter += 1
+            feel = None
+            preds = None
+            probab=None
         case 2:
             reply = eve.questions_0['q1']
-            eve.speak(reply)
-            preds, feel = eve.predict_(eve.vectorizer.transform(eve.preprocessor([input])))
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 3:
             reply = eve.questions_0['q2']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 4:
             reply = eve.questions_0['q3']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 5:
             reply = eve.questions_0['q4']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 6:
             reply = eve.questions_0['q5']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 7:
             reply = eve.questions_0['q6']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 8:
             reply = eve.questions_0['q7']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 9:
             reply = eve.questions_0['q8']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
         case 10:
             reply = eve.questions_0['q9']
-            eve.speak(reply)
+            preds, probab, feel = eve.predict_(input)
             counter += 1
+            eve.speak(feel)
+            eve.speak(reply)
+
+
 
     await cl.Avatar(
-        name="EVE Stage 1",
-        url="https://avatars.githubusercontent.com/u/128686189?s=400&u=a1d1553023f8ea0921fba0debbe92a8c5f840dd9&v=4",
+        name="EVE Stage 1 (feel)",
+        url="https://img.icons8.com/?size=1x&id=JP608nHvU0ed&format=gif",
+    ).send()
+
+    await cl.Avatar(
+        name="EVE Stage 1 (reply)",
+        url="https://img.icons8.com/?size=1x&id=JP608nHvU0ed&format=gif",
+    ).send()
+
+    await cl.Avatar(
+        name="Emotion",
+        url="https://img.icons8.com/?size=1x&id=LEQaEe95xxN5&format=gif",
     ).send()
 
     await cl.Avatar(
         name="Emotional Tracker",
-        url="https://avatars.githubusercontent.com/u/128686189?s=400&u=a1d1553023f8ea0921fba0debbe92a8c5f840dd9&v=4",
+        url="https://img.icons8.com/?size=1x&id=oduDd8Uqz1ZX&format=gif",
     ).send()
 
-    await cl.Pyplot(name="Emotional State", figure=emotion_tracker(), display="side").send()
+
+
+    if probab and preds:
+        text = f"{eve.emotion[preds]}: {round(probab*100, 2)}%"
+        elements = [cl.Text(name="Emotion", content=text, display="inline")]
+        await cl.Message(
+            content="Emotion",
+            author = "Emotion",
+            elements=elements).send()
+
+    fig = emotion_tracker()
+    elements = [cl.Pyplot(name="Emotional State", figure=fig, display="side")]
     await cl.Message(
-        content="Your current Emotional State", author="Emotional Tracker"
+        content="Emotional State",
+        author="Emotional Tracker",
+        elements=elements
     ).send()
 
+
+
+    if feel:
+        await cl.Message(
+            content=feel,
+            author="EVE Stage 1 (feel)"
+        ).send()
+
     await cl.Message(
-        content=reply, author="EVE Stage 1"
+        content=reply,
+        author="EVE Stage 1 (reply)"
     ).send()
