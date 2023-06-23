@@ -3,7 +3,6 @@ import pyttsx3
 from tqdm import tqdm
 from pathlib import Path
 import time
-import threading
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from EVE_AI.entity.config_entity import BaseConfig
@@ -33,7 +32,7 @@ class Base:
         self.positive = 0.0
         self.total_score = 0.0
 
-        self.user_name = None
+        self.user_name = ""
 
         self.emotion = {
             0: "Sadness",
@@ -57,17 +56,18 @@ class Base:
         self.responses = {}
 
         self.questions_0 = {
-            "intro": "Hii! I'm EVE, an Enhanced Virtual Emotional Artificial Intelligence. Find me as your friend and a personal companion. Before we proceed, may I know your first name?",
+            "intro": "Hii! I'm EVE, an Enhanced Virtual Emotional Artificial Intelligence. Find me as your friend and a "
+                "personal companion. Before we proceed, may I know your first name?",
             "name": "That's a nice name!. So, how are you doing",
             "q1": "Is there anything you want to talk about?",
-            "q3": "How's your stress level lately",
-            "q4": "Have you been eating and sleeping",
-            "q5": "Would you be willing to talk to someone",
-            "q6": "What would you like to achieve from our conversation?",
-            "q7": "Can you tell me a bit about yourself and your background?",
-            "q8": "What are some of the challenges or difficulties you've been facing recently?",
-            "q9": "How have these challenges been impacting your daily life or overall well-being?",
-            "q10": "Is there anything else you would like me to know?"
+            "q2": "How's your stress level lately",
+            "q3": "Have you been eating and sleeping",
+            "q4": "Would you be willing to talk to someone",
+            "q5": "What would you like to achieve from our conversation?",
+            "q6": "Can you tell me a bit about yourself and your background?",
+            "q7": "What are some of the challenges or difficulties you've been facing recently?",
+            "q8": "How have these challenges been impacting your daily life or overall well-being?",
+            "q9": "Is there anything else you would like me to know?"
         }
 
         self.questions_1 = {"depression": ["How have you been feeling lately?",
@@ -176,7 +176,7 @@ class Base:
 
     def speak(self, audio):
         self.engine.say(audio)
-        threading.Thread(target=self.engine.runAndWait).start()
+        self.engine.runAndWait()
 
 
     def feeling(self, preds, probab):
