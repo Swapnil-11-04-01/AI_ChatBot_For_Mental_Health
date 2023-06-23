@@ -1,7 +1,7 @@
 from EVE_AI.components.base import Base
 from EVE_AI.config.configuration import ConfigurationManager
 import chainlit as cl
-from streamlit_chat import message
+import matplotlib.pyplot as plt
 import pygame
 import base64
 
@@ -21,14 +21,31 @@ pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 
-
-
 user_history = []
 counter = 0
 
 
+
+def emotion_tracker():
+    labels = ['Positivity', 'Negativity']
+    values = [eve.positive, eve.negative]
+
+    fig, ax = plt.subplots()
+
+    ax.bar(labels, values, color=['green', 'blue'])
+
+    ax.set_ylabel('Percentage')
+    ax.set_title('Emotion Tracker')
+
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    fig.tight_layout()
+
+    return fig
+
 @cl.on_message
-async def generate_answer(message: str):
+async def generate_answer(input: str):
     global counter
     match counter:
         case 0:
@@ -36,13 +53,14 @@ async def generate_answer(message: str):
             eve.speak(reply)
             counter += 1
         case 1:
-            eve.user_name = message
-            reply = eve.questions_0['name'] + ' ' + message
+            eve.user_name = input
+            reply = eve.questions_0['name'] + ' ' + input
             eve.speak(reply)
             counter += 1
         case 2:
             reply = eve.questions_0['q1']
             eve.speak(reply)
+            preds, feel = eve.predict_(eve.vectorizer.transform(eve.preprocessor([input])))
             counter += 1
         case 3:
             reply = eve.questions_0['q2']
@@ -77,10 +95,16 @@ async def generate_answer(message: str):
             eve.speak(reply)
             counter += 1
 
+
+    await cl.Pyplot(name="Emotional State", figure=emotion_tracker(), display="side").send()
+    await cl.Message(
+        content="Your current Emotional State",
+    ).send()
+
     await cl.Avatar(
         name="Tool 1",
         url="https://avatars.githubusercontent.com/u/128686189?s=400&u=a1d1553023f8ea0921fba0debbe92a8c5f840dd9&v=4",
     ).send()
     await cl.Message(
-        content=str(counter) + ' ' + reply, author="Tool 1"
+        content=reply, author="Tool 1"
     ).send()
