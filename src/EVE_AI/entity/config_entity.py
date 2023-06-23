@@ -49,8 +49,9 @@ class EvaluationConfig:
 
 @dataclass(frozen=True)
 class BaseConfig:
-    root_data_dir: Path
+    root_dir: Path
+    intent_data: Path
     base_preprocessor_path: Path
-    base_tokenizer_path: Path
+    fitted_tokenizer_path: Path
     trained_model_path: Path
     distance_vector_path: Path
