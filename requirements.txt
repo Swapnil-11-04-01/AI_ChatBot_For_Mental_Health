@@ -15,5 +15,6 @@ SpeechRecognition
 pyttsx3
 streamlit
 streamlit-chat
+chainlit
 
 # -e .
