@@ -16,7 +16,7 @@ user_env = []
 
 [UI]
 # Name of the app and chatbot.
-name = "Chatbot"
+name = "EVE"
 
 # Description of the app and chatbot. This is used for HTML tags.
 # description = ""
