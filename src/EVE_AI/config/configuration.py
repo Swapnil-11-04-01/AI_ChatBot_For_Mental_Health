@@ -88,20 +88,25 @@ class ConfigurationManager:
 
     def get_validation_config(self) -> EvaluationConfig:
         eval_config = EvaluationConfig(
-            path_of_model=self.config.training.trained_model_path,
-            path_of_tokenizer=self.config.prepare_fitted_tokenizer.fitted_tokenizer_path,
-            path_of_preprocessor=self.config.preprocessor.preprocessor_path,
-            test_data=os.path.join(self.config.data_ingestion.unzip_dir, "test.csv"),
+            path_of_model=Path(self.config.training.trained_model_path),
+            path_of_tokenizer=Path(self.config.prepare_fitted_tokenizer.fitted_tokenizer_path),
+            path_of_preprocessor=Path(self.config.preprocessor.preprocessor_path),
+            test_data=Path(os.path.join(self.config.data_ingestion.unzip_dir, "test.csv")),
             all_params=self.params
         )
         return eval_config
 
     def get_base_config(self) -> BaseConfig:
+        base = self.config.base
+        create_directories([
+            Path(base.root_dir)
+        ])
         base_config = BaseConfig(
-            root_data_dir=self.config.base.root_data_dir,
-            base_preprocessor_path=self.config.preprocessor.preprocessor_path,
-            base_tokenizer_path=self.config.prepare_base_tokenizer.base_tokenizer_path,
-            trained_model_path=self.config.training.trained_model_path,
-            distance_vector_path=self.config.base.distance_vector_path
+            root_dir=Path(base.root_dir),
+            intent_data=Path(base.intent_data),
+            base_preprocessor_path=Path(self.config.preprocessor.preprocessor_path),
+            fitted_tokenizer_path=Path(self.config.prepare_fitted_tokenizer.fitted_tokenizer_path),
+            trained_model_path=Path(self.config.training.trained_model_path),
+            distance_vector_path=Path(base.distance_vector_path)
         )
         return base_config
