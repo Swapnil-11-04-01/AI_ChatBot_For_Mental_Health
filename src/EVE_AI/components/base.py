@@ -2,8 +2,8 @@ import pickle
 import pyttsx3
 from tqdm import tqdm
 from pathlib import Path
-from pathlib import Path
 import time
+import threading
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from EVE_AI.entity.config_entity import BaseConfig
@@ -18,10 +18,9 @@ class Base:
         self.intent_dict = {}
         self.config = config
 
-        self.engine = pyttsx3.init('sapi5')
-        self.rate = self.engine.getProperty('rate')
-        self.voice = self.engine.getProperty('voices')
-        self.engine.setProperty('voice', self.voice[1].id)
+        self.engine = None
+
+        self.lock = threading.Lock()
 
         self.intent_data = pd.read_csv(self.config.root_data_dir)
         self.preprocessor = pickle.load(open(self.config.base_preprocessor_path, "rb"))
@@ -173,10 +172,26 @@ class Base:
         return model
 
 
-    def speak(self, audio, rate):
-        self.engine.setProperty('rate', rate * 0.86)
-        self.engine.say(audio)
-        self.engine.runAndWait()
+    def initialize_engine(self):
+        self.engine = pyttsx3.init('sapi5')
+        self.rate = self.engine.getProperty('rate')
+        self.voice = self.engine.getProperty('voices')
+        self.engine.setProperty('voice', self.voice[1].id)
+        self.engine.setProperty('rate', self.rate * 0.86)
+
+
+    def speak(self, audio):
+        if self.engine is None:
+            with self.lock:
+                if self.engine is None:
+                    self.initialize_engine()
+        def run_speech():
+            self.engine.say(audio)
+            self.engine.runAndWait()
+
+        speech_thread = threading.Thread(target=run_speech)
+        speech_thread.start()
+
 
 
     def feeling(self, preds, probab):
