@@ -1,29 +1,40 @@
+from EVE_AI.components.base import Base
+from EVE_AI.config.configuration import ConfigurationManager
 import streamlit as st
 from streamlit_chat import message
 import pygame
 
-def typewriter_animation(text, delay=100):
-    """
-    Displays text one character at a time, with a delay between each character.
 
-    Args:
-        text (str): The text to display.
-        delay (int): The delay between each character, in milliseconds.
-    """
-    for i, char in enumerate(text):
-        st.write(char)
-        pygame.time.wait(delay)
+sound = True
+pygame.mixer.init()
+user_history = []
+
+# try:
+#     pygame.mixer.music.stop()
+# except:
+#     pass
+
+pygame.mixer.music.load("templates/bg_music.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+
+config = ConfigurationManager()
+base_config = config.get_base_config()
+eve = Base(config=base_config)
+
+ques_set_0 = eve.questions_0
+
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+st.title("EVE AI")
 
 def generate_answer(msg):
     user_message = st.session_state.input_text
     message_bot = msg
     # eve.speak(message_bot)
 
-    if "history" not in st.session_state:
-        st.session_state.history = []
-
     st.session_state.history.append({"message": user_message, "is_user": True})
-    typewriter_animation(message_bot)
     st.session_state.history.append({"message": message_bot, "is_user": False})
 
 def reply(state=None):
