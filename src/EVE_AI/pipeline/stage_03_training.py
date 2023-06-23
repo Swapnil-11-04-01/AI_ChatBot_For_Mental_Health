@@ -15,14 +15,15 @@ class ModelTrainingPipeline:
     def main(self):
         config = ConfigurationManager()
         training_config = config.get_training_config()
-        base_config = config.get_base_config()
         training = Training(config=training_config)
-        base = Base(config=base_config)
         training.get_base_model()
         training.get_tokenizer()
         training.train_valid_generator()
-        base.intent_data_modifier(base.intent_data)
         training.train()
+
+        base_config = config.get_base_config()
+        base = Base(config=base_config)
+        base.intent_data_modifier(base.intent_data)
 
 
 
