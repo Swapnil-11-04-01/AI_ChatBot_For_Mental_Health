@@ -95,16 +95,21 @@ async def generate_answer(input: str):
             eve.speak(reply)
             counter += 1
 
-
-    await cl.Pyplot(name="Emotional State", figure=emotion_tracker(), display="side").send()
-    await cl.Message(
-        content="Your current Emotional State",
+    await cl.Avatar(
+        name="EVE Stage 1",
+        url="https://avatars.githubusercontent.com/u/128686189?s=400&u=a1d1553023f8ea0921fba0debbe92a8c5f840dd9&v=4",
     ).send()
 
     await cl.Avatar(
-        name="Tool 1",
+        name="Emotional Tracker",
         url="https://avatars.githubusercontent.com/u/128686189?s=400&u=a1d1553023f8ea0921fba0debbe92a8c5f840dd9&v=4",
     ).send()
+
+    await cl.Pyplot(name="Emotional State", figure=emotion_tracker(), display="side").send()
     await cl.Message(
-        content=reply, author="Tool 1"
+        content="Your current Emotional State", author="Emotional Tracker"
+    ).send()
+
+    await cl.Message(
+        content=reply, author="EVE Stage 1"
     ).send()
