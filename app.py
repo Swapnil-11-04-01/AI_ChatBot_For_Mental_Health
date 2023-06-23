@@ -36,6 +36,8 @@ def generate_answer(msg):
 
     st.session_state.history.append({"message": user_message, "is_user": True})
     st.session_state.history.append({"message": message_bot, "is_user": False})
+    st.session_state.input_text = ""
+
 
 def reply(state=None):
     if state==1:
