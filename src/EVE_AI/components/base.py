@@ -23,9 +23,10 @@ class Base:
         self.engine.setProperty('voice', self.voice[1].id)
         self.engine.setProperty('rate', self.rate * 0.86)
 
-        self.intent_data = pd.read_csv(self.config.root_data_dir)
+        self.intent_data = pd.read_csv(self.config.intent_data)
         self.preprocessor = pickle.load(open(self.config.base_preprocessor_path, "rb"))
-        self.vectorizer = pickle.load(open(self.config.base_tokenizer_path, "rb"))
+        self.vectorizer = pickle.load(open(self.config.fitted_tokenizer_path, "rb"))
+        self.distance_vector = pickle.load(open(self.config.distance_vector_path, "rb"))
         self.model = pickle.load(open(self.config.trained_model_path, "rb"))
 
         self.negative = 0.0
@@ -231,7 +232,7 @@ class Base:
         else:
             print(self.emotion[preds], f"{round(probab, 2) * 100}%")
         feel = self.feeling(preds, probab)
-        return preds, feel
+        return preds, probab, feel
 
 
     def intent_data_modifier(self, data):
@@ -244,11 +245,11 @@ class Base:
         for key, values in tqdm(self.intent_dict.items()):
             self.intent_dict[key] = self.vectorizer.transform([values])
 
-        self.save_model(self.config.distance_vector_path, self.intent_dict)
+        self.save_model(self.distance_vector, self.intent_dict)
 
 
     def intent(self, message):
-        intent_dict = self.load_model(self.config.distance_vector_path)
+        intent_dict = self.load_model(self.distance_vector)
         message = self.preprocessor(message)
         message = self.vectorizer.transform([message])
         vectors_array = [v.toarray().flatten() for v in intent_dict.values()]
