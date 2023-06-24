@@ -1,5 +1,5 @@
 import pickle
-import pyttsx3
+# import pyttsx3
 from tqdm import tqdm
 from pathlib import Path
 import time
@@ -17,11 +17,11 @@ class Base:
         self.intent_dict = {}
         self.config = config
 
-        self.engine = pyttsx3.init('sapi5')
-        self.rate = self.engine.getProperty('rate')
-        self.voice = self.engine.getProperty('voices')
-        self.engine.setProperty('voice', self.voice[1].id)
-        self.engine.setProperty('rate', self.rate * 0.86)
+        # self.engine = pyttsx3.init('sapi5')
+        # self.rate = self.engine.getProperty('rate')
+        # self.voice = self.engine.getProperty('voices')
+        # self.engine.setProperty('voice', self.voice[1].id)
+        # self.engine.setProperty('rate', self.rate * 0.86)
 
         self.intent_data = pd.read_csv(self.config.intent_data)
         self.preprocessor = pickle.load(open(self.config.base_preprocessor_path, "rb"))
@@ -178,9 +178,9 @@ class Base:
         return model
 
 
-    def speak(self, audio):
-        self.engine.say(audio)
-        self.engine.runAndWait()
+    # def speak(self, audio):
+    #     self.engine.say(audio)
+    #     self.engine.runAndWait()
 
 
     def feeling(self, preds, probab):
