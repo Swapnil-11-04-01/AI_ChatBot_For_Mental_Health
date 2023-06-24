@@ -2,7 +2,7 @@ from EVE_AI.components.base import Base
 from EVE_AI.config.configuration import ConfigurationManager
 import chainlit as cl
 import matplotlib.pyplot as plt
-import pygame
+# import pygame
 import numpy as np
 
 
@@ -19,11 +19,11 @@ ques_set_2 = eve.questions_2
 
 
 
-sound = True
-pygame.mixer.init()
-pygame.mixer.music.load("templates/bg_music.mp3")
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play(-1)
+# sound = True
+# pygame.mixer.init()
+# pygame.mixer.music.load("templates/bg_music.mp3")
+# pygame.mixer.music.set_volume(0.5)
+# pygame.mixer.music.play(-1)
 
 
 user_history = []
@@ -244,9 +244,9 @@ async def app(input: str):
                     f"Keep Smiling"
             # eve.speak(feel)
             # eve.speak(surprise)
-            pygame.mixer.music.stop()
-            pygame.mixer.music.load("templates/Story_1.mp3")
-            pygame.mixer.music.play(0)
+            # pygame.mixer.music.stop()
+            # pygame.mixer.music.load("templates/Story_1.mp3")
+            # pygame.mixer.music.play(0)
 
 
 
