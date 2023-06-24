@@ -31,6 +31,7 @@ stages:
     deps:
       - src/EVE_AI/pipeline/stage_03_training.py
       - src/EVE_AI/components/training.py
+      - src/EVE_AI/components/base.py
       - config/config.yaml
       - artifacts/data_ingestion
       - artifacts/prepare_base_model
@@ -40,6 +41,8 @@ stages:
     outs:
       - artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
       - artifacts/training/model.pkl
+      - artifacts/distance_vector/distance_vectorizer.pkl
+      - artifacts/distance_vector/distance_vector_index.pkl
 
 
 

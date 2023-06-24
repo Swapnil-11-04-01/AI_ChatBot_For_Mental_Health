@@ -23,9 +23,9 @@ def speak(audio):
     engine.runAndWait()
 
 
-preprocessor = pickle.load(open("artifacts\\prepare_preprocessor\\prepare_preprocessor.pkl", "rb"))
-vectorizer = pickle.load(open("artifacts\\prepare_fitted_tokenizer\\prepare_fitted_tokenizer.pkl", "rb"))
-model = pickle.load(open("artifacts\\training\\model.pkl", "rb"))
+preprocessor = pickle.load(open("../../../artifacts/prepare_preprocessor/prepare_preprocessor.pkl", "rb"))
+vectorizer = pickle.load(open("../../../artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl", "rb"))
+model = pickle.load(open("../../../artifacts/training/model.pkl", "rb"))
 
 emotion = {
     0: "Sadness",

@@ -3,7 +3,8 @@ import os
 from EVE_AI.utils.common import read_yaml, create_directories
 from EVE_AI.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig,
                                          PrepareBaseTokenizerConfig, TrainingConfig,
-                                         EvaluationConfig)
+                                         EvaluationConfig, BaseConfig)
+
 
 class ConfigurationManager:
     def __init__(
@@ -87,10 +88,27 @@ class ConfigurationManager:
 
     def get_validation_config(self) -> EvaluationConfig:
         eval_config = EvaluationConfig(
-            path_of_model=self.config.training.trained_model_path,
-            path_of_tokenizer=self.config.prepare_fitted_tokenizer.fitted_tokenizer_path,
-            path_of_preprocessor=self.config.preprocessor.preprocessor_path,
-            test_data=os.path.join(self.config.data_ingestion.unzip_dir, "test.csv"),
+            path_of_model=Path(self.config.training.trained_model_path),
+            path_of_tokenizer=Path(self.config.prepare_fitted_tokenizer.fitted_tokenizer_path),
+            path_of_preprocessor=Path(self.config.preprocessor.preprocessor_path),
+            test_data=Path(os.path.join(self.config.data_ingestion.unzip_dir, "test.csv")),
             all_params=self.params
         )
         return eval_config
+
+    def get_base_config(self) -> BaseConfig:
+        base = self.config.base
+        create_directories([
+            Path(base.root_dir)
+        ])
+        base_config = BaseConfig(
+            root_dir=Path(base.root_dir),
+            intent_data=Path(base.intent_data),
+            base_preprocessor_path=Path(self.config.preprocessor.preprocessor_path),
+            base_tokenizer_path=Path(self.config.prepare_base_tokenizer.base_tokenizer_path),
+            fitted_tokenizer_path=Path(self.config.prepare_fitted_tokenizer.fitted_tokenizer_path),
+            trained_model_path=Path(self.config.training.trained_model_path),
+            distance_vectorizer_path=Path(base.distance_vectorizer_path),
+            distance_vector_dict_path=Path(base.distance_vector_dict_path)
+        )
+        return base_config

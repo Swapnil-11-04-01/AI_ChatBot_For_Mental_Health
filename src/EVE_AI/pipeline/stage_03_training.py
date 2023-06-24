@@ -1,5 +1,6 @@
 from EVE_AI.config.configuration import ConfigurationManager
 from EVE_AI.components.training import Training
+from EVE_AI.components.base import Base
 from EVE_AI import logger
 import warnings
 
@@ -19,6 +20,10 @@ class ModelTrainingPipeline:
         training.get_tokenizer()
         training.train_valid_generator()
         training.train()
+
+        base_config = config.get_base_config()
+        base = Base(config=base_config)
+        base.intent_data_modifier(base.intent_data)
 
 
 
