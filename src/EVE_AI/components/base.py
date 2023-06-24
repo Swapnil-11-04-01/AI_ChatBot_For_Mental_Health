@@ -25,13 +25,17 @@ class Base:
 
         self.intent_data = pd.read_csv(self.config.intent_data)
         self.preprocessor = pickle.load(open(self.config.base_preprocessor_path, "rb"))
+        self.base_vectorizer = pickle.load(open(self.config.base_tokenizer_path, "rb"))
         self.vectorizer = pickle.load(open(self.config.fitted_tokenizer_path, "rb"))
-        self.distance_vector = pickle.load(open(self.config.distance_vector_path, "rb"))
+        self.distance_vectorizer_path = self.config.distance_vectorizer_path
+        self.distance_vector_dict_path = self.config.distance_vector_dict_path
         self.model = pickle.load(open(self.config.trained_model_path, "rb"))
 
         self.negative = 0.0
         self.positive = 0.0
         self.total_score = 0.0
+        self.similarities = None
+        self.problem = None
 
         self.user_name = ""
 
@@ -71,17 +75,7 @@ class Base:
             "q9": "Is there anything else you would like me to know?"
         }
 
-        self.questions_1 = {"depression": ["How have you been feeling lately?",
-                                         "Have you noticed any changes in your mood or energy levels?",
-                                         "Are there any specific challenges or difficulties you're currently facing?",
-                                         "Do you find it hard to find joy or interest in activities that used to bring you pleasure?",
-                                         "Are there times when you feel a sense of sadness or emptiness that you can't quite explain?",
-                                         "Have you noticed any changes in your sleep patterns or appetite?",
-                                         "Are there any negative thoughts or self-critical beliefs that seem to dominate your thinking?",
-                                         "Have you experienced a loss of motivation or difficulty concentrating on tasks?",
-                                         "Have you tried any strategies or activities that have helped improve your mood in the past?",
-                                         "Is there anything you'd like to discuss or explore further to support your emotional well-being?"],
-                          "anxiety": ["How are you feeling right now?",
+        self.questions_1 = {"anxiety": ["How are you feeling right now?",
                                       "Is there anything on your mind that's causing you distress?",
                                       "Have you noticed any changes in your mood or emotions recently?",
                                       "Are there any specific situations or challenges that you're finding difficult to navigate?",
@@ -91,6 +85,16 @@ class Base:
                                       "Are there any particular areas of your life where you're feeling overwhelmed?",
                                       "Have you tried any strategies to manage stress or find balance when things feel challenging?",
                                       "Is there anything you'd like to talk about or explore further to help improve your well-being?"],
+                            "depression": ["How have you been feeling lately?",
+                                         "Have you noticed any changes in your mood or energy levels?",
+                                         "Are there any specific challenges or difficulties you're currently facing?",
+                                         "Do you find it hard to find joy or interest in activities that used to bring you pleasure?",
+                                         "Are there times when you feel a sense of sadness or emptiness that you can't quite explain?",
+                                         "Have you noticed any changes in your sleep patterns or appetite?",
+                                         "Are there any negative thoughts or self-critical beliefs that seem to dominate your thinking?",
+                                         "Have you experienced a loss of motivation or difficulty concentrating on tasks?",
+                                         "Have you tried any strategies or activities that have helped improve your mood in the past?",
+                                         "Is there anything you'd like to discuss or explore further to support your emotional well-being?"],
                           "paranoia": ["How have you been feeling lately?",
                                        "Have you noticed any changes in your thoughts or beliefs about others or the world around you?",
                                        "Are there specific situations or interactions that make you feel more suspicious or on edge?",
@@ -241,31 +245,35 @@ class Base:
             self.intent_dict[col] = data[col].str.cat(sep=' ')
             combined_intent_vector.append(self.intent_dict[col])
         combined_intent_vector = pd.Series(combined_intent_vector).apply(self.preprocessor)
-        self.vectorizer.fit(pd.Series(combined_intent_vector))
-        for key, values in tqdm(self.intent_dict.items()):
-            self.intent_dict[key] = self.vectorizer.transform([values])
+        self.base_vectorizer.fit(pd.Series(combined_intent_vector))
 
-        self.save_model(self.distance_vector, self.intent_dict)
+        self.save_model(self.distance_vectorizer_path, self.base_vectorizer)
+
+        for key, values in tqdm(self.intent_dict.items()):
+            self.intent_dict[key] = self.base_vectorizer.transform([values])
+
+        self.save_model(self.distance_vector_dict_path, self.intent_dict)
 
 
     def intent(self, message):
-        intent_dict = self.load_model(self.distance_vector)
+        intent_dict = self.load_model(self.distance_vector_dict_path)
+        fitted_distance_vectorizer = self.load_model(self.distance_vectorizer_path)
         message = self.preprocessor(message)
-        message = self.vectorizer.transform([message])
+        message = fitted_distance_vectorizer.transform([message])
         vectors_array = [v.toarray().flatten() for v in intent_dict.values()]
-        similarities = cosine_similarity(message.reshape(1, -1), vectors_array)
-        closest_index = similarities.argmin()
+        self.similarities = cosine_similarity(message.reshape(1, -1), vectors_array)
+        closest_index = self.similarities.argmin()
         emotion = list(intent_dict.keys())[closest_index]
         return emotion
 
     def respond(self, message):
         emotion = self.intent(message)
-        return self.questions_1[emotion]
+        return emotion
 
 
     def quiz(self, name):
         time.sleep(1)
-        self. speak("Now we're starting with a small assessment and hopefully at the end of the assessment,we'll be able to "
+        self.speak("Now we're starting with a small assessment and hopefully at the end of the assessment,we'll be able to "
               "evaluate your mental health")
 
         time.sleep(0.8)
