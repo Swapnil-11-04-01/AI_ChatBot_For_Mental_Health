@@ -35,7 +35,11 @@ class Base:
         self.positive = 0.0
         self.total_score = 0.0
         self.similarities = None
+<<<<<<< Updated upstream
         self.problem = None
+=======
+        # self.problem = None
+>>>>>>> Stashed changes
 
         self.user_name = ""
 
