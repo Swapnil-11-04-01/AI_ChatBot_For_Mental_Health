@@ -54,32 +54,23 @@ def problem_tracker():
     labels = ['Anxiety', 'Depression', 'Paranoia', "Sleeping Disorder", "Substance Abuse", "Personality Disorder",
               "Happy"]
     values = [1-i[0] for i in eve.similarities.tolist()]
-    # Determine the lower and higher values
     lower_value = min(values)
     higher_value = max(values)
 
-    # Calculate the desired y-limits
-    lower_limit = lower_value * 0.99
-    higher_limit = 1
+    lower_limit = lower_value
+    higher_limit = higher_value
 
-    # Create the x-axis values
     x = np.arange(len(values))
 
     fig, ax = plt.subplots()
-
     ax.bar(labels, values, color=['red', 'yellow', 'orange', 'green', 'blue', 'brown', 'pink'])
-
     ax.set_ylabel('Score')
     ax.set_title('Mental State Tracker')
-
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
-    # Set the y-limits
     plt.ylim(lower_limit, higher_limit)
-
     plt.xticks(rotation=45)
-
     fig.tight_layout()
 
     return fig
@@ -165,103 +156,97 @@ async def generate_answer(input: str):
             eve.speak(reply)
         case 11:
             hook = True
-            reply = f"Please ask me for help whenever you feel like it! I'm always online. Also, before going, " \
-                            f"there is one surprise for you!! hahaha!! Until next time {eve.user_name}. Stay Happy, " \
-                        f"Keep Smiling"
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
             problem = eve.respond(" ".join(user_history))
+            reply = f"It's alright {eve.user_name}, feel free to share anything you want. So, {ques_set_1[problem][0]}"
             eve.speak(feel)
             eve.speak(reply)
+        case 12:
+            reply = ques_set_1[problem][1]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 13:
+            reply = ques_set_1[problem][2]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 14:
+            reply = ques_set_1[problem][3]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 15:
+            reply = ques_set_1[problem][4]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 16:
+            reply = ques_set_1[problem][5]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 17:
+            reply = ques_set_1[problem][6]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 18:
+            reply = ques_set_1[problem][7]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 19:
+            reply = ques_set_1[problem][8]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 20:
+            reply = ques_set_1[problem][9]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 21:
+            reply = ques_set_1[problem][9]
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            eve.speak(feel)
+            eve.speak(reply)
+        case 22:
+            hook = True
+            preds, probab, feel = eve.predict_(input)
+            counter += 1
+            user_history.append(input)
+            problem = eve.respond(" ".join(user_history))
+            surprise = f"Please ask me for help whenever you feel like it! I'm always online. Also, before going, " \
+                    f"there is one surprise for you!! hahaha!! Until next time {eve.user_name}. Stay Happy, " \
+                    f"Keep Smiling"
+            eve.speak(feel)
+            eve.speak(surprise)
             pygame.mixer.music.stop()
             pygame.mixer.music.load("templates/Story_1.mp3")
             pygame.mixer.music.play(0)
-        # case 13:
-        #     print()
-        #     reply = ques_set_1[problem][1]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 14:
-        #     reply = ques_set_1[problem][2]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 15:
-        #     reply = ques_set_1[problem][3]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 16:
-        #     reply = ques_set_1[problem][4]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 17:
-        #     reply = ques_set_1[problem][5]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 18:
-        #     reply = ques_set_1[problem][6]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 19:
-        #     reply = ques_set_1[problem][7]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 20:
-        #     reply = ques_set_1[problem][8]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 21:
-        #     reply = ques_set_1[problem][9]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 22:
-        #     reply = ques_set_1[problem][9]
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     eve.speak(feel)
-        #     eve.speak(reply)
-        # case 23:
-        #     hook = True
-        #     preds, probab, feel = eve.predict_(input)
-        #     counter += 1
-        #     user_history.append(input)
-        #     problem = eve.respond(" ".join(user_history))
-        #     surprise = f"Please ask me for help whenever you feel like it! I'm always online. Also, before going, " \
-        #             f"there is one surprise for you!! hahaha!! Until next time {eve.user_name}. Stay Happy, " \
-        #             f"Keep Smiling"
-        #     eve.speak(feel)
-        #     eve.speak(surprise)
-        #     pygame.mixer.music.stop()
-        #     pygame.mixer.music.load("templates/Story_1.mp3")
-        #     pygame.mixer.music.play(0)
 
 
 
