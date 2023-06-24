@@ -26,20 +26,9 @@ pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 
-
-<<<<<<< Updated upstream
-user_history = []
-counter = 0
-=======
-<<<<<<< Updated upstream
-def get_response(msg, step):
-    match step:
-=======
 user_history = []
 counter = 0
 problem = None
->>>>>>> Stashed changes
-
 
 
 def emotion_tracker():
@@ -67,18 +56,11 @@ def problem_tracker():
     values = [1-i[0] for i in eve.similarities.tolist()]
     # Determine the lower and higher values
     lower_value = min(values)
-<<<<<<< Updated upstream
     higher_value = max(values)
-
-    # Calculate the desired y-limits
-    lower_limit = lower_value * 0.8
-    higher_limit = higher_value * 1.5
-=======
 
     # Calculate the desired y-limits
     lower_limit = lower_value * 0.99
     higher_limit = 1
->>>>>>> Stashed changes
 
     # Create the x-axis values
     x = np.arange(len(values))
@@ -106,16 +88,9 @@ def problem_tracker():
 
 @cl.on_message
 async def generate_answer(input: str):
-<<<<<<< Updated upstream
-    global counter
-    feel, preds, probab, eve.problem = None, None, None, None
-    match counter:
-=======
     global counter, problem
     feel, preds, probab, hook = None, None, None, None
     match counter:
->>>>>>> Stashed changes
->>>>>>> Stashed changes
         case 0:
             reply = ques_set_0['intro']
             eve.speak(reply)
@@ -168,14 +143,6 @@ async def generate_answer(input: str):
             eve.speak(feel)
             eve.speak(reply)
         case 8:
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-            pygame.mixer.music.stop()
-            pygame.mixer.music.load("artifacts\\data_ingestion\\Story_1.mp3")
-            pygame.mixer.music.play(0)
-=======
->>>>>>> Stashed changes
             reply = ques_set_0['q7']
             preds, probab, feel = eve.predict_(input)
             counter += 1
@@ -197,7 +164,6 @@ async def generate_answer(input: str):
             eve.speak(feel)
             eve.speak(reply)
         case 11:
-<<<<<<< Updated upstream
             reply = f"It's alright {eve.user_name}, feel free to share anything you want. So, {ques_set_1[eve.problem][0]}"
             preds, probab, feel = eve.predict_(input)
             counter += 1
@@ -205,100 +171,6 @@ async def generate_answer(input: str):
             eve.problem = eve.respond(" ".join(user_history))
             eve.speak(feel)
             eve.speak(reply)
-        case 13:
-            reply = ques_set_1[eve.problem][1]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 14:
-            reply = ques_set_1[eve.problem][2]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 15:
-            reply = ques_set_1[eve.problem][3]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 16:
-            reply = ques_set_1[eve.problem][4]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 17:
-            reply = ques_set_1[eve.problem][5]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 18:
-            reply = ques_set_1[eve.problem][6]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 19:
-            reply = ques_set_1[eve.problem][7]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 20:
-            reply = ques_set_1[eve.problem][8]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 21:
-            reply = ques_set_1[eve.problem][9]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 22:
-            reply = ques_set_1[eve.problem][9]
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
-        case 23:
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            eve.speak(feel)
-            eve.problem = eve.respond(" ".join(user_history))
-=======
-            hook = True
-            preds, probab, feel = eve.predict_(input)
-            counter += 1
-            user_history.append(input)
-            problem = eve.respond(" ".join(user_history))
-            # reply = f"It's alright {eve.user_name}, feel free to share anything you want. So, {ques_set_1[problem][0]}"
-            # eve.speak(feel)
-            # eve.speak(reply)
-            surprise = f"Please ask me for help whenever you feel like it! I'm always online. Also, before going, " \
-                            f"there is one surprise for you!! hahaha!! Until next time {eve.user_name}. Stay Happy, " \
-                        f"Keep Smiling"
-            eve.speak(feel)
-            eve.speak(surprise)
-            pygame.mixer.music.stop()
-            pygame.mixer.music.load("templates/Story_1.mp3")
-            pygame.mixer.music.play(0)
-
         # case 13:
         #     print()
         #     reply = ques_set_1[problem][1]
@@ -387,11 +259,6 @@ async def generate_answer(input: str):
 
 
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-
-
-
 
 
 
@@ -441,24 +308,8 @@ async def generate_answer(input: str):
         ).send()
 
 
-
-<<<<<<< Updated upstream
-
-
-    if eve.problem:
-        text = f"Signs of {eve.problem} seen"
-=======
-<<<<<<< Updated upstream
-# START
-if __name__ == "__main__":
-    app = startWindow()
-    app.run()
-=======
-
-
     if hook:
         text = f"Signs of {problem} seen"
->>>>>>> Stashed changes
         elements = [cl.Text(name="Problem", content=text, display="inline")]
         await cl.Message(
             content="Problem",
@@ -483,16 +334,9 @@ if __name__ == "__main__":
             author="EVE Stage 1 (feel)"
         ).send()
 
-<<<<<<< Updated upstream
-    if reply:
-        await cl.Message(
-            content=reply,
-            author="EVE Stage 1 (reply)"
-        ).send()
-=======
+
     await cl.Message(
         content=reply,
         author="EVE Stage 1 (reply)"
     ).send()
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
