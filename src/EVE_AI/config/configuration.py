@@ -105,8 +105,10 @@ class ConfigurationManager:
             root_dir=Path(base.root_dir),
             intent_data=Path(base.intent_data),
             base_preprocessor_path=Path(self.config.preprocessor.preprocessor_path),
+            base_tokenizer_path=Path(self.config.prepare_base_tokenizer.base_tokenizer_path),
             fitted_tokenizer_path=Path(self.config.prepare_fitted_tokenizer.fitted_tokenizer_path),
             trained_model_path=Path(self.config.training.trained_model_path),
-            distance_vector_path=Path(base.distance_vector_path)
+            distance_vectorizer_path=Path(base.distance_vectorizer_path),
+            distance_vector_dict_path=Path(base.distance_vector_dict_path)
         )
         return base_config
