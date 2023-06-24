@@ -12,5 +12,6 @@ nltk
 pygame
 pyttsx3
 chainlit
+comtypes
 
 -e .
