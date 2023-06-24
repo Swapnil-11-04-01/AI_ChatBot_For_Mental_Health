@@ -78,7 +78,7 @@ def problem_tracker():
 
 
 @cl.on_message
-async def generate_answer(input: str):
+async def app(input: str):
     global counter, problem
     feel, hook = None, None
     match counter:
