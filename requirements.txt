@@ -10,8 +10,8 @@ joblib
 catboost
 nltk
 pygame
-pyttsx3
+# pyttsx3
 chainlit
-comtypes
+# comtypes
 
 -e .
