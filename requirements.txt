@@ -11,10 +11,7 @@ joblib
 catboost
 nltk
 pygame
-SpeechRecognition
 pyttsx3
-streamlit
-streamlit-chat
 chainlit
 
-# -e .
+-e .
