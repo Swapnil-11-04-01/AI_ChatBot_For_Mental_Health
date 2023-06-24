@@ -41,7 +41,8 @@ stages:
     outs:
       - artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
       - artifacts/training/model.pkl
-      - artifacts/distance_vector/distance_vector.pkl
+      - artifacts/distance_vector/distance_vectorizer.pkl
+      - artifacts/distance_vector/distance_vector_index.pkl
 
 
 
