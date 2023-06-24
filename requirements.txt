@@ -9,7 +9,7 @@ types-PyYAML
 joblib
 catboost
 nltk
-pygame
+# pygame
 # pyttsx3
 chainlit
 # comtypes
