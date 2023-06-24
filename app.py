@@ -84,76 +84,76 @@ async def app(input: str):
     match counter:
         case 0:
             reply = ques_set_0['intro']
-            eve.speak(reply)
+            # eve.speak(reply)
             counter += 1
         case 1:
             eve.user_name = input
             reply = ques_set_0['name'] + ' ' + input
-            eve.speak(reply)
+            # eve.speak(reply)
             counter += 1
         case 2:
             reply = ques_set_0['q1']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 3:
             reply = ques_set_0['q2']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 4:
             reply = ques_set_0['q3']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 5:
             reply = ques_set_0['q4']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 6:
             reply = ques_set_0['q5']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 7:
             reply = ques_set_0['q6']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 8:
             reply = ques_set_0['q7']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 9:
             reply = ques_set_0['q8']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 10:
             reply = ques_set_0['q9']
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 11:
             hook = True
             preds, probab, feel = eve.predict_(input)
@@ -161,78 +161,78 @@ async def app(input: str):
             user_history.append(input)
             problem = eve.respond(" ".join(user_history))
             reply = f"It's alright {eve.user_name}, feel free to share anything you want. So, {ques_set_1[problem][0]}"
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 12:
             reply = ques_set_1[problem][1]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 13:
             reply = ques_set_1[problem][2]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 14:
             reply = ques_set_1[problem][3]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 15:
             reply = ques_set_1[problem][4]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 16:
             reply = ques_set_1[problem][5]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 17:
             reply = ques_set_1[problem][6]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 18:
             reply = ques_set_1[problem][7]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 19:
             reply = ques_set_1[problem][8]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 20:
             reply = ques_set_1[problem][9]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 21:
             reply = ques_set_1[problem][9]
             preds, probab, feel = eve.predict_(input)
             counter += 1
             user_history.append(input)
-            eve.speak(feel)
-            eve.speak(reply)
+            # eve.speak(feel)
+            # eve.speak(reply)
         case 22:
             hook = True
             preds, probab, feel = eve.predict_(input)
@@ -242,8 +242,8 @@ async def app(input: str):
             surprise = f"Please ask me for help whenever you feel like it! I'm always online. Also, before going, " \
                     f"there is one surprise for you!! hahaha!! Until next time {eve.user_name}. Stay Happy, " \
                     f"Keep Smiling"
-            eve.speak(feel)
-            eve.speak(surprise)
+            # eve.speak(feel)
+            # eve.speak(surprise)
             pygame.mixer.music.stop()
             pygame.mixer.music.load("templates/Story_1.mp3")
             pygame.mixer.music.play(0)
