@@ -54,11 +54,11 @@ def problem_tracker():
     labels = ['Anxiety', 'Depression', 'Paranoia', "Sleeping Disorder", "Substance Abuse", "Personality Disorder",
               "Happy"]
     values = [1-i[0] for i in eve.similarities.tolist()]
-    lower_value = min(values)
-    higher_value = max(values)
+    # lower_value = min(values)
+    # higher_value = max(values)
 
-    lower_limit = lower_value
-    higher_limit = higher_value
+    lower_limit = 0.827
+    higher_limit = 0.83
 
     x = np.arange(len(values))
 
@@ -274,8 +274,13 @@ async def app(input: str):
     ).send()
 
     await cl.Avatar(
+        name="Mental Tracker",
+        url="https://img.icons8.com/?size=1x&id=j1VehapaDMSP&format=gif",
+    ).send()
+
+    await cl.Avatar(
         name="Problem",
-        url="https://icons8.com/icon/in2IMUCImGjB/disappointed",
+        url="https://img.icons8.com/?size=1x&id=FXmiWYadi8ZY&format=gif",
     ).send()
 
 
@@ -311,7 +316,7 @@ async def app(input: str):
         elements = [cl.Pyplot(name="Mental State", figure=fig, display="side")]
         await cl.Message(
             content="Mental State",
-            author="Emotional Tracker",
+            author="Mental Tracker",
             elements=elements
         ).send()
 
