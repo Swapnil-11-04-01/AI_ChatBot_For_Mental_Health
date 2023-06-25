@@ -21,7 +21,7 @@ EVE AI is a chatbot designed to provide mental health support. The project utili
 EVE AI is implemented as a GUI-based desktop application using Python. The desktop app provides a user-friendly interface for interacting with the chatbot.
 
 **Key Features:**
-- Enhanced Virtual Emotional Artificial Intelligence (EVE AI)
+- Bautiful Ambient Music
 - Voice-enabled AI
 
 **Video Demonstration:** A video demonstration of the EVE AI desktop app can be found at [https://youtu.be/uxc6U1OCIo4](https://youtu.be/uxc6U1OCIo4).
