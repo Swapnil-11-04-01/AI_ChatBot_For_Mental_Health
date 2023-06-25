@@ -1,0 +1,42 @@
+cmd: python src/EVE_AI/pipeline/stage_03_training.py
+deps:
+- path: artifacts/data_ingestion
+  md5: 7cb782c0551e5f7a0abc94720eafee6c.dir
+  size: 2832323
+  nfiles: 5
+- path: artifacts/prepare_base_model
+  md5: a6cd0c6cf90b4fdc6a0ad87461a4cc52.dir
+  size: 138
+  nfiles: 1
+- path: artifacts/prepare_base_tokenizer
+  md5: 10fc323eb5dc3ae9ea5d10b2c6a7559c.dir
+  size: 455
+  nfiles: 1
+- path: config/config.yaml
+  md5: 04cf1311fa43893437e401eef818046e
+  size: 1243
+- path: src/EVE_AI/components/base.py
+  md5: a860c5a009f4a2522be37ec4804591c1
+  size: 23258
+- path: src/EVE_AI/components/training.py
+  md5: 62ea69881b8ecc3ee58383c66b15a005
+  size: 2651
+- path: src/EVE_AI/pipeline/stage_03_training.py
+  md5: ace00d8108063c8e4a36c94214cfa90a
+  size: 1157
+params:
+  params.yaml:
+    VERBOSE: 3
+outs:
+- path: artifacts/distance_vector/distance_vector_index.pkl
+  md5: 5915ecaf2470dffc361ae36b998163c2
+  size: 9910
+- path: artifacts/distance_vector/distance_vectorizer.pkl
+  md5: ad9d25cb5ceb242fb4310ee7c3b49588
+  size: 38564
+- path: artifacts/prepare_fitted_tokenizer/prepare_fitted_tokenizer.pkl
+  md5: 001d19faba2ff02443c03c07e87e6347
+  size: 293377
+- path: artifacts/training/model.pkl
+  md5: 6e23947699af0f98674017e40289ddab
+  size: 613475

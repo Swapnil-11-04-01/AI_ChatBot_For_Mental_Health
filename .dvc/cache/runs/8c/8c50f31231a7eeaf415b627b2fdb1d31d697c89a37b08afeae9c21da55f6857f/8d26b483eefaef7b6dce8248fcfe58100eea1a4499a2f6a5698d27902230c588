@@ -1,0 +1,16 @@
+cmd: python src/EVE_AI/pipeline/stage_01_data_ingestion.py
+deps:
+- path: config/config.yaml
+  md5: ff98b2609e218af9da19ea7e54549825
+  size: 1153
+- path: src/EVE_AI/components/data_ingestion.py
+  md5: 532f3509750330eb16a8c147dc3eedb7
+  size: 1229
+- path: src/EVE_AI/pipeline/stage_01_data_ingestion.py
+  md5: 870d485ad8d645af5e280cbbc483b261
+  size: 943
+outs:
+- path: artifacts/data_ingestion
+  md5: 7cb782c0551e5f7a0abc94720eafee6c.dir
+  size: 2832323
+  nfiles: 5
