@@ -1,4 +1,4 @@
-# Project 1 - EVE AI - ChatBot for Mental Health (Deployed) 💬🤖
+# EVE AI - ChatBot for Mental Health (Deployed) 💬🤖
 
 **Duration:** September 2022 - June 2023
 
