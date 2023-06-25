@@ -1,4 +1,4 @@
-# EVE AI - ChatBot for Mental Health (Deployed) 💬🤖
+# EVE AI - ChatBot for Mental Health 💬🤖
 
 **Technologies used:** Python, Tkinter, Machine Learning, NLP, Chainlit, Docker, Github
 
